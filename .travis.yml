@@ -1,0 +1,12 @@
+language: node_js
+node_js:
+- 8
+- 9
+- 10
+deploy:
+  provider: npm
+  email: kall@kall.ws
+  api_key:
+    secure: C4neRif4g8mSGXIZd2tuJsdJ8yyda3spuWyvRKsutIsy8QImBbR610nPN31TYGONRgTeCTWh3EyJ6Cwl+cFvLRezyFGS/yRL6xpXdQjHecxv3vRRFi4AkUtSkmgVfOTZK27b4KnWEkFjUT/GQULU6xo2EYjaDBlgr1CIbeo2n1ldRBV3wjHpFyf9zO2DnpnVZopbEtXzqhQRFlQouH3krtvXJL7n9KHmL9SZiuWZ7PtzDP17pyA3Ovtf7V/pGTW1SLuMd7e3rc6gCy3WpQv3Mjoxi3z5Msu9r+I5Rf5WqY7VPAqmCwQp0OU4j2LUBugMBZD7G2dRIk98mMTrnVJEJS82J8ey3cHhhId7L2kMJh+THqZt5m2mGs1VvkoylLqspzapTXxa5DXn43ZKpJw4EzOh1kZojNJOM3LjzDTVgpJEQQzl4tVG51MwyEEQWeyii6gunUk2Du8xxhPPCCCbGvpdp8yMxfWSxfDYPmbo9aQH4pQ3LTClDqMhBIZnFOkMUwqBUjAc0YOBqVOwWuvrQqoYH6xm+V1mkseRALA7wBkEHuAPMa3T5OKTDn1YUzuTsFupPxVADy+duau3DJ8YnFs94xKW8RH4i6djFxBDIIjw4yLuXedP1sk+olInR43cGFbB3P+cDC2mwjS1+QsC/XRSNYu5iHqw8wDLWe5Gg7w=
+  on:
+    tags: true

@@ -1,0 +1,35 @@
+{
+  "name": "spotify-url-info",
+  "version": "1.0.0",
+  "description": "Get metadata for a spotify url without spotify API access",
+  "author": "Karl Sander <kall@kall.ws>",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "dependencies": {
+    "cheerio": "^1.0.0-rc.2",
+    "cross-fetch": "^2.2.1",
+    "spotify-uri": "^1.0.0"
+  },
+  "devDependencies": {
+    "jest": "^23.2.0"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  },
+  "bugs": {
+    "url": "https://github.com/karlsander/airtable-fetch/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/karlsander/spotify-url-info"
+  },
+  "keywords": [
+    "spotify",
+    "metadata",
+    "music",
+    "embed"
+  ],
+  "license": "ISC"
+}
