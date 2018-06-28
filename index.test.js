@@ -60,8 +60,8 @@ test("get preview for spotify Track", () => {
     expect(result.image).toContain("://");
     expect(result.audio).toContain("/mp3-preview/");
     expect(result.link).toContain("open.spotify.com/track/");
-    expect(result.embed).toBe(
-      "https://embed.spotify.com/?uri=spotify:track:5nTtCOCds6I0PHMNtqelas"
+    expect(result.embed).toContain(
+      "https://embed.spotify.com/?uri=spotify:track"
     );
   });
 });
@@ -119,54 +119,54 @@ test("get preview for spotify playlist", () => {
   });
 });
 
-test("get preview for spotify Track with constructed uri", () => {
+test("get preview for spotify album with constructed uri", () => {
   expect.assertions(8);
-  return getPreview("spotify:track:5nTtCOCds6I0PHMNtqelas").then(result => {
-    expect(result.title).toBe("Immaterial");
-    expect(result.type).toBe("track");
-    expect(result.artist).toBe("SOPHIE");
-    expect(result.track).toBe("Immaterial");
+  return getPreview("spotify:album:4tDBsfbHRJ9OdcMO9bmnai").then(result => {
+    expect(result.title).toBe("PRODUCT");
+    expect(result.type).toBe("album");
+    expect(result.artist).toContain("SOPHIE");
+    expect(result.track).toBeDefined();
     expect(result.image).toContain("://");
-    expect(result.audio).toContain("/mp3-preview/");
-    expect(result.link).toContain("open.spotify.com/track/");
+    expect(result.audio).toBeNull();
+    expect(result.link).toContain("open.spotify.com/album/");
     expect(result.embed).toBe(
-      "https://embed.spotify.com/?uri=spotify:track:5nTtCOCds6I0PHMNtqelas"
+      "https://embed.spotify.com/?uri=spotify:album:4tDBsfbHRJ9OdcMO9bmnai"
     );
   });
 });
 
-test("get preview for spotify Track with play url", () => {
+test("get preview for spotify album with play url", () => {
   expect.assertions(8);
   return getPreview(
-    "https://play.spotify.com/track/5nTtCOCds6I0PHMNtqelas"
+    "https://play.spotify.com/album/4tDBsfbHRJ9OdcMO9bmnai"
   ).then(result => {
-    expect(result.title).toBe("Immaterial");
-    expect(result.type).toBe("track");
-    expect(result.artist).toBe("SOPHIE");
-    expect(result.track).toBe("Immaterial");
+    expect(result.title).toBe("PRODUCT");
+    expect(result.type).toBe("album");
+    expect(result.artist).toContain("SOPHIE");
+    expect(result.track).toBeDefined();
     expect(result.image).toContain("://");
-    expect(result.audio).toContain("/mp3-preview/");
-    expect(result.link).toContain("open.spotify.com/track/");
+    expect(result.audio).toBeNull();
+    expect(result.link).toContain("open.spotify.com/album/");
     expect(result.embed).toBe(
-      "https://embed.spotify.com/?uri=spotify:track:5nTtCOCds6I0PHMNtqelas"
+      "https://embed.spotify.com/?uri=spotify:album:4tDBsfbHRJ9OdcMO9bmnai"
     );
   });
 });
 
-xtest("get preview for spotify Track with twitter embed url", () => {
+xtest("get preview for spotify Album with twitter embed url", () => {
   expect.assertions(8);
   return getPreview(
-    "https://open.spotify.com/embed/track/5nTtCOCds6I0PHMNtqelas?utm_campaign=twitter-player&utm_source=open&utm_medium=twitter"
+    "https://open.spotify.com/embed/album/4tDBsfbHRJ9OdcMO9bmnai?utm_campaign=twitter-player&utm_source=open&utm_medium=twitter"
   ).then(result => {
-    expect(result.title).toBe("Immaterial");
-    expect(result.type).toBe("track");
-    expect(result.artist).toBe("SOPHIE");
-    expect(result.track).toBe("Immaterial");
+    expect(result.title).toBe("PRODUCT");
+    expect(result.type).toBe("album");
+    expect(result.artist).toContain("SOPHIE");
+    expect(result.track).toBeDefined();
     expect(result.image).toContain("://");
-    expect(result.audio).toContain("/mp3-preview/");
-    expect(result.link).toContain("open.spotify.com/track/");
+    expect(result.audio).toBeNull();
+    expect(result.link).toContain("open.spotify.com/album/");
     expect(result.embed).toBe(
-      "https://embed.spotify.com/?uri=spotify:track:5nTtCOCds6I0PHMNtqelas"
+      "https://embed.spotify.com/?uri=spotify:album:4tDBsfbHRJ9OdcMO9bmnai"
     );
   });
 });
@@ -174,17 +174,17 @@ xtest("get preview for spotify Track with twitter embed url", () => {
 test("get preview for spotify Track with constructed embed url", () => {
   expect.assertions(8);
   return getPreview(
-    "https://embed.spotify.com/?uri=spotify:track:5nTtCOCds6I0PHMNtqelas"
+    "https://embed.spotify.com/?uri=spotify:album:4tDBsfbHRJ9OdcMO9bmnai"
   ).then(result => {
-    expect(result.title).toBe("Immaterial");
-    expect(result.type).toBe("track");
-    expect(result.artist).toBe("SOPHIE");
-    expect(result.track).toBe("Immaterial");
+    expect(result.title).toBe("PRODUCT");
+    expect(result.type).toBe("album");
+    expect(result.artist).toContain("SOPHIE");
+    expect(result.track).toBeDefined();
     expect(result.image).toContain("://");
-    expect(result.audio).toContain("/mp3-preview/");
-    expect(result.link).toContain("open.spotify.com/track/");
+    expect(result.audio).toBeNull();
+    expect(result.link).toContain("open.spotify.com/album/");
     expect(result.embed).toBe(
-      "https://embed.spotify.com/?uri=spotify:track:5nTtCOCds6I0PHMNtqelas"
+      "https://embed.spotify.com/?uri=spotify:album:4tDBsfbHRJ9OdcMO9bmnai"
     );
   });
 });
