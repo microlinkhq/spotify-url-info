@@ -34,7 +34,10 @@ function parseIntoPreview(data) {
     artist: firstTrack.artists.map(a => a.name).join(" & "),
     image: images.reduce((a, b) => (a.width > b.width ? a : b)).url,
     audio: firstTrack.preview_url,
-    link: data.external_urls.spotify
+    link: data.external_urls.spotify,
+    embed: spotifyURI.formatEmbedURL(
+      spotifyURI.parse(data.external_urls.spotify)
+    )
   });
 }
 

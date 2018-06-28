@@ -122,7 +122,8 @@ returns
   "image": "https://i.scdn.co/image/d6f496a6708d22a2f867e5acb84afb0eb0b07bc1",
   "audio":
     "https://p.scdn.co/mp3-preview/6be8eb12ff18ae09b7a6d38ff1e5327fd128a74e?cid=162b7dc01f3a4a2ca32ed3cec83d1e02",
-  "link": "https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas"
+  "link": "https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas",
+  "embed": "https://embed.spotify.com/?uri=spotify:track:5nTtCOCds6I0PHMNtqelas"
 }
 ```
 
@@ -131,6 +132,10 @@ returns
 This uses cheerio to scrape the spotify twitter widget so it is unsanctioned and likely to break. I'll have the tests run on a schedule on travis ci so that I get notified when it will inevitably break. Then I can hopefully fix it. A more stable alternative is scraping the opengraph tags for the links with [open-graph-scraper](https://github.com/jshemas/openGraphScraper). The biggest issues there are no audio previews for artists and the number of requests it can take to get all the needed metadata.
 
 ## Changelog
+
+### 1.1.0
+
+- add embed field to `getPreview` result
 
 ### 1.0.0
 

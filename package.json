@@ -1,6 +1,6 @@
 {
   "name": "spotify-url-info",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "Get metadata for a spotify url without spotify API access",
   "author": "Karl Sander <kall@kall.ws>",
   "main": "index.js",
@@ -19,7 +19,7 @@
     "node": ">=8.0.0"
   },
   "bugs": {
-    "url": "https://github.com/karlsander/airtable-fetch/issues"
+    "url": "https://github.com/karlsander/spotify-url-info/issues"
   },
   "repository": {
     "type": "git",
