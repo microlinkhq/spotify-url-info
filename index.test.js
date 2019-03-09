@@ -114,7 +114,7 @@ test("get preview for spotify playlist", () => {
     expect(result.audio).toContain("/mp3-preview/");
     expect(result.link).toContain("/playlist/");
     expect(result.embed).toBe(
-      "https://embed.spotify.com/?uri=spotify:user:sophiemsmsmsm:playlist:3Q4cPwMHY95ZHXtmcU2xvH"
+      "https://embed.spotify.com/?uri=spotify:playlist:3Q4cPwMHY95ZHXtmcU2xvH"
     );
   });
 });
