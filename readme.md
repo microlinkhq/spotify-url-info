@@ -132,6 +132,10 @@ This uses cheerio to scrape the spotify twitter widget so it is unsanctioned and
 
 ## Changelog
 
+### 1.2.0
+
+- now uses Himalaya for html parsing instead of cheerio, its more complex / brittle but the bundle is way smaller so it can be used inside apps
+
 ### 1.1.1
 
 - generate embed url for preview with string concatination instead of using spotifyURL package
