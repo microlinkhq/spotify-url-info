@@ -8,8 +8,8 @@
     "test": "jest"
   },
   "dependencies": {
-    "cheerio": "^1.0.0-rc.2",
     "cross-fetch": "^3.0.1",
+    "himalaya": "^1.1.0",
     "spotify-uri": "^1.0.0"
   },
   "devDependencies": {

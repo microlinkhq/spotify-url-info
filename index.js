@@ -1,6 +1,6 @@
 const spotifyURI = require("spotify-uri");
 const { fetch } = require("cross-fetch");
-const cheerio = require("cheerio");
+const { parse } = require("himalaya");
 
 function getData(url) {
   let parsedURL = {};
@@ -15,8 +15,19 @@ function getData(url) {
   const embedURL = spotifyURI.formatEmbedURL(parsedURL);
   return fetch(embedURL)
     .then(res => res.text())
-    .then(cheerio.load)
-    .then(embed => JSON.parse(embed("script#resource").html()))
+    .then(parse)
+    .then(embed =>
+      JSON.parse(
+        embed
+          .filter(e => e.tagName === "html")[0]
+          .children.filter(e => e.tagName === "body")[0]
+          .children.filter(
+            e =>
+              e.tagName === "script" &&
+              e.attributes.findIndex(a => a.value === "resource") !== -1
+          )[0].children[0].content
+      )
+    )
     .then(sanityCheck);
 }
 
