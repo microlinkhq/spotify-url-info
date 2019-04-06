@@ -131,6 +131,9 @@ returns
 This uses cheerio to scrape the spotify twitter widget so it is unsanctioned and likely to break. I'll have the tests run on a schedule on travis ci so that I get notified when it will inevitably break. Then I can hopefully fix it. A more stable alternative is scraping the opengraph tags for the links with [open-graph-scraper](https://github.com/jshemas/openGraphScraper). The biggest issues there are no audio previews for artists and the number of requests it can take to get all the needed metadata.
 
 ## Changelog
+### 1.3.0
+
+- remove lockfile
 
 ### 1.2.0
 
@@ -147,4 +150,4 @@ This uses cheerio to scrape the spotify twitter widget so it is unsanctioned and
 
 ### 1.0.0
 
-- first public release, adheres to semever from this point on
+- first public release
