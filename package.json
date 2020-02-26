@@ -10,7 +10,7 @@
   "dependencies": {
     "cross-fetch": "^3.0.1",
     "himalaya": "^1.1.0",
-    "spotify-uri": "^1.0.0"
+    "spotify-uri": "^2.0.0"
   },
   "devDependencies": {
     "jest": "^24.1.0"
