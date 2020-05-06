@@ -8,12 +8,12 @@
     "test": "jest"
   },
   "dependencies": {
-    "cross-fetch": "^3.0.1",
+    "cross-fetch": "^3.0.4",
     "himalaya": "^1.1.0",
-    "spotify-uri": "^1.0.0"
+    "spotify-uri": "^2.0.0"
   },
   "devDependencies": {
-    "jest": "^24.1.0"
+    "jest": "^25.2.7"
   },
   "engines": {
     "node": ">=8.0.0"
