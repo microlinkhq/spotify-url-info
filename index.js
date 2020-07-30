@@ -46,11 +46,14 @@ function getData(url) {
 function parseIntoPreview(data) {
   const track = getFirstTrack(data);
   const images = data.type === "track" ? data.album.images : data.images;
+  const date = data.album ? data.album.release_date : data.release_date
 
   return Promise.resolve({
+    date,
     title: data.name,
     type: data.type,
     track: track.name,
+    description: data.description || undefined,
     artist: track.artists.map(a => a.name).join(" & "),
     image: images.reduce((a, b) => (a.width > b.width ? a : b)).url,
     audio: track.preview_url,
