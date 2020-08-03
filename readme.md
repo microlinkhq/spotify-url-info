@@ -124,9 +124,10 @@ returns
   "link": "https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas",
   "embed": "https://embed.spotify.com/?uri=spotify:track:5nTtCOCds6I0PHMNtqelas",
   "date": "2018-06-15",
-  "description": "description of a podcast episode",
+  "description": "description of a podcast episode"
 }
 ```
+
 The fields `description` and `date` will be undefined for some types of media that don't have this information.
 
 ## Caveats
@@ -134,6 +135,11 @@ The fields `description` and `date` will be undefined for some types of media th
 This uses cheerio to scrape the spotify twitter widget so it is unsanctioned and likely to break. I'll have the tests run on a schedule on travis ci so that I get notified when it will inevitably break. Then I can hopefully fix it. A more stable alternative is scraping the opengraph tags for the links with [open-graph-scraper](https://github.com/jshemas/openGraphScraper). The biggest issues there are no audio previews for artists and the number of requests it can take to get all the needed metadata.
 
 ## Changelog
+
+### 1.4.0
+
+- Support for podcast episodes on spotify (contributed by @kikobeats)
+- new `description` and `date` fields in the preview object (contributed by @kikobeats)
 
 ### 1.3.1
 
