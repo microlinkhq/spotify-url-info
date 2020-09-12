@@ -5,6 +5,8 @@
 
 This package can fetch useful metdata for spotify urls without needing a spotify API key. This is accomplished by some very light scraping. My usecase is providing a customized mini player preview.
 
+Warning: This library will not work directly in the browser, because the spotify page that it scrapes does not allow cross-origion requests. You can use it in node.js, in serverless functions and in react native. Alternatively use a CORS proxy.
+
 ## Usage
 
 ```bash
