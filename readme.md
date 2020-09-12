@@ -136,6 +136,10 @@ This uses cheerio to scrape the spotify twitter widget so it is unsanctioned and
 
 ## Changelog
 
+### 2.0.0
+
+- Drop support for EOL node versions, which is technically breaking 🤷‍♂️
+
 ### 1.4.0
 
 - Support for podcast episodes on spotify (contributed by @kikobeats)
