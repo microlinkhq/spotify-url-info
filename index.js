@@ -2,13 +2,7 @@ const spotifyURI = require("spotify-uri");
 const { fetch } = require("cross-fetch");
 const { parse } = require("himalaya");
 
-const SUPPORTED_TYPES = [
-  "album",
-  "artist",
-  "episode",
-  "playlist",
-  "track"
-];
+const SUPPORTED_TYPES = ["album", "artist", "episode", "playlist", "track"];
 
 function getData(url) {
   let parsedURL = {};
@@ -32,13 +26,13 @@ function getData(url) {
       JSON.parse(
         decodeURIComponent(
           embed
-          .filter(e => e.tagName === "html")[0]
-          .children.filter(e => e.tagName === "body")[0]
-          .children.filter(
-            e =>
-              e.tagName === "script" &&
-              e.attributes.findIndex(a => a.value === "resource") !== -1
-          )[0].children[0].content
+            .filter(e => e.tagName === "html")[0]
+            .children.filter(e => e.tagName === "body")[0]
+            .children.filter(
+              e =>
+                e.tagName === "script" &&
+                e.attributes.findIndex(a => a.value === "resource") !== -1
+            )[0].children[0].content
         )
       )
     )
@@ -48,7 +42,7 @@ function getData(url) {
 function parseIntoPreview(data) {
   const track = getFirstTrack(data);
   const images = data.type === "track" ? data.album.images : data.images;
-  const date = data.album ? data.album.release_date : data.release_date
+  const date = data.album ? data.album.release_date : data.release_date;
 
   return Promise.resolve({
     date,
@@ -76,7 +70,7 @@ function getFirstTrack(data) {
       return data.tracks[0];
     case "episode":
       return {
-        artists: data.show.publisher.split(' and ').map(name => ({ name })),
+        artists: data.show.publisher.split(" and ").map(name => ({ name })),
         name: data.show.name,
         preview_url: data.audio_preview_url
       };
@@ -95,7 +89,7 @@ function sanityCheck(data) {
   if (!SUPPORTED_TYPES.includes(data.type)) {
     return Promise.reject(
       new Error(
-        `Not an ${SUPPORTED_TYPES.join(', ')}. Only these types can be parsed`
+        `Not an ${SUPPORTED_TYPES.join(", ")}. Only these types can be parsed`
       )
     );
   }
