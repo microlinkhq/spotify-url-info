@@ -30,7 +30,8 @@ function getData(url) {
     .then(parse)
     .then(embed =>
       JSON.parse(
-        embed
+        decodeURIComponent(
+          embed
           .filter(e => e.tagName === "html")[0]
           .children.filter(e => e.tagName === "body")[0]
           .children.filter(
@@ -38,6 +39,7 @@ function getData(url) {
               e.tagName === "script" &&
               e.attributes.findIndex(a => a.value === "resource") !== -1
           )[0].children[0].content
+        )
       )
     )
     .then(sanityCheck);
