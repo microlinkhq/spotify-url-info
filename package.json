@@ -2,7 +2,7 @@
   "name": "spotify-url-info",
   "description": "Get metadata for a spotify url without spotify API access",
   "homepage": "https://github.com/karlsander/spotify-url-info#readme",
-  "version": "2.0.0",
+  "version": "2.1.0",
   "main": "index.js",
   "author": {
     "email": "kall@kall.ws",
