@@ -30,7 +30,7 @@ function getData(url) {
     .then(parse)
     .then(embed =>
       JSON.parse(
-        unescape(
+        decodeURIComponent(
           embed
           .filter(e => e.tagName === "html")[0]
           .children.filter(e => e.tagName === "body")[0]
