@@ -18,24 +18,40 @@ function getData(url) {
   }
 
   const embedURL = spotifyURI.formatEmbedURL(parsedURL);
-
   return fetch(embedURL)
     .then(res => res.text())
     .then(parse)
-    .then(embed =>
-      JSON.parse(
-        decodeURIComponent(
-          embed
-            .filter(e => e.tagName === "html")[0]
-            .children.filter(e => e.tagName === "body")[0]
-            .children.filter(
-              e =>
-                e.tagName === "script" &&
-                e.attributes.findIndex(a => a.value === "resource") !== -1
-            )[0].children[0].content
-        )
-      )
-    )
+    .then(embed => {
+      const scripts = embed
+        .filter(e => e.tagName === "html")[0]
+        .children.filter(e => e.tagName === "body")[0]
+        .children.filter(e => e.tagName === "script");
+      const resourceScript = scripts.filter(
+        e => e.attributes.findIndex(a => a.value === "resource") !== -1
+      );
+      const hydrateScript = scripts.filter(
+        e => e.children[0] && e.children[0].content.includes(`"data":`)
+      );
+      if (resourceScript.length > 0) {
+        // found data in the older embed style
+        return JSON.parse(
+          decodeURIComponent(resourceScript[0].children[0].content)
+        );
+      } else if (hydrateScript.length > 0) {
+        // found hydration data
+        // parsing via looking for { to be a little bit resistant to code changes
+        const scriptContent = hydrateScript[0].children[0].content;
+        const dataString =
+          "{" + scriptContent.split("{").slice(1).join("{").trim();
+        return JSON.parse(dataString).data;
+      } else {
+        return Promise.reject(
+          new Error(
+            "Couldn't find any data in embed page that we know how to parse"
+          )
+        );
+      }
+    })
     .then(sanityCheck);
 }
 

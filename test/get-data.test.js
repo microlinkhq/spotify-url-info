@@ -18,61 +18,56 @@ test("getting data for non spotify url string should return rejection", () => {
 });
 
 test("get data for spotify track", () => {
-  expect.assertions(4);
+  expect.assertions(3);
   return getData("https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas").then(
     result => {
       expect(result.type).toBe("track");
       expect(result.name).toBe("Immaterial");
       expect(result.external_urls.spotify).toContain("open.spotify.com/track");
-      expect(result.dominantColor).toContain("#");
     }
   );
 });
 
 test("get data for spotify artist", () => {
-  expect.assertions(4);
+  expect.assertions(3);
   return getData("https://open.spotify.com/artist/5a2w2tgpLwv26BYJf2qYwu").then(
     result => {
       expect(result.type).toBe("artist");
       expect(result.name).toBe("SOPHIE");
       expect(result.external_urls.spotify).toContain("open.spotify.com/artist");
-      expect(result.dominantColor).toContain("#");
     }
   );
 });
 
 test("get data for spotify album", () => {
-  expect.assertions(4);
+  expect.assertions(3);
   return getData("https://open.spotify.com/album/4tDBsfbHRJ9OdcMO9bmnai").then(
     result => {
       expect(result.type).toBe("album");
       expect(result.name).toBe("PRODUCT");
       expect(result.external_urls.spotify).toContain("open.spotify.com/album");
-      expect(result.dominantColor).toContain("#");
     }
   );
 });
 
 test("get data for spotify playlist", () => {
-  expect.assertions(4);
+  expect.assertions(3);
   return getData(
     "https://open.spotify.com/user/sophiemsmsmsm/playlist/3Q4cPwMHY95ZHXtmcU2xvH"
   ).then(result => {
     expect(result.type).toBe("playlist");
     expect(result.name).toBe("SOPHIE – PRODUCT");
     expect(result.external_urls.spotify).toContain("/playlist/");
-    expect(result.dominantColor).toContain("#");
   });
 });
 
 test("get data for spotify episode", () => {
-  expect.assertions(4);
+  expect.assertions(3);
   return getData("http://open.spotify.com/episode/64TORH3xleuD1wcnFsrH1E").then(
     result => {
       expect(result.type).toBe("episode");
       expect(result.name).toBe("Hasty Treat - Modules in Node");
       expect(result.external_urls.spotify).toContain("/episode/");
-      expect(result.dominantColor).toContain("#");
     }
   );
 });
