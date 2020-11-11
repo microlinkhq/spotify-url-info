@@ -74,6 +74,16 @@ function parseIntoPreview(data) {
   });
 }
 
+function parseIntoTrackArray(data){
+  if(data.tracks.items)
+      if(data.tracks.items[0].track)
+          return Promise.resolve(data.tracks.items.map(t => t.track));//playlist
+      else
+          return Promise.resolve(data.tracks.items)//album
+  else(data.tracks)
+      return Promise.resolve(data.tracks)//artist
+}
+
 function getFirstTrack(data) {
   switch (data.type) {
     case "track":
@@ -115,3 +125,5 @@ function sanityCheck(data) {
 module.exports.getData = getData;
 
 module.exports.getPreview = url => getData(url).then(parseIntoPreview);
+
+module.exports.getTracks = url => getData(url).then(parseIntoTrackArray);
