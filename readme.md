@@ -48,6 +48,44 @@ await getData("https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas");
 
 returns any raw data we can scrape from spotify. There are no guarantees about the shape of this data, because it varies with different media and scraping methods. Handle it carefully.
 
+
+```javascript
+await getTitles("https://open.spotify.com/playlist/3Q4cPwMHY95ZHXtmcU2xvH");
+```
+
+returns array with tracks. Bellow is array with one track with guaranteed properties.
+
+```json
+[
+  {
+    "artists": [ 
+      {
+        "external_urls": {
+          "spotify": "https://open.spotify.com/artist/5a2w2tgpLwv26BYJf2qYwu"
+        },
+        "href": "https://api.spotify.com/v1/artists/5a2w2tgpLwv26BYJf2qYwu",
+        "id": "5a2w2tgpLwv26BYJf2qYwu",
+        "name": "SOPHIE",
+        "type": "artist",
+        "uri": "spotify:artist:5a2w2tgpLwv26BYJf2qYwu"
+      } 
+    ],
+    "duration_ms": 188520,
+    "episode": false,
+    "explicit": false,
+    "external_urls": {
+      "spotify": "https://open.spotify.com/track/18yTgk0VgjB9XDj8h2q6Td"
+    },
+    "href": "https://api.spotify.com/v1/tracks/18yTgk0VgjB9XDj8h2q6Td",
+    "id": "18yTgk0VgjB9XDj8h2q6Td",
+    "name": "JUST LIKE WE NEVER SAID GOODBYE",
+    "popularity": 34,
+    "preview_url": "https://p.scdn.co/mp3-preview/d5790004de973f83756311075125ffc965e522c8?cid=a46f5c5745a14fbf826186da8da5ecc3",
+    "type": "track",
+    "uri": "spotify:track:18yTgk0VgjB9XDj8h2q6Td"
+  }
+]```
+
 ## Caveats
 
 This uses cheerio to scrape the spotify twitter widget so it is unsanctioned and likely to break. I'll have the tests run on a schedule on travis ci so that I get notified when it will inevitably break. Then I can hopefully fix it. A more stable alternative is scraping the opengraph tags for the links with [open-graph-scraper](https://github.com/jshemas/openGraphScraper). The biggest issues there are no audio previews for artists and the number of requests it can take to get all the needed metadata.
