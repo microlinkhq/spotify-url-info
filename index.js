@@ -74,6 +74,24 @@ function parseIntoPreview(data) {
   });
 }
 
+function parseIntoTrackArray(data) {
+  if (!data.tracks) {
+    // Is a track or a podcast episode
+    return Promise.resolve([data]);
+  } else if (data.tracks.items) {
+    if (data.tracks.items[0].track) {
+      // Is a playlist
+      return Promise.resolve(data.tracks.items.map(t => t.track));
+    } else {
+      // Is an album
+      return Promise.resolve(data.tracks.items);
+    }
+  } else {
+    // Is an artist
+    return Promise.resolve(data.tracks);
+  }
+}
+
 function getFirstTrack(data) {
   switch (data.type) {
     case "track":
@@ -115,3 +133,5 @@ function sanityCheck(data) {
 module.exports.getData = getData;
 
 module.exports.getPreview = url => getData(url).then(parseIntoPreview);
+
+module.exports.getTracks = url => getData(url).then(parseIntoTrackArray);
