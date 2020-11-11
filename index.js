@@ -75,14 +75,22 @@ function parseIntoPreview(data) {
 }
 
 function parseIntoTrackArray(data) {
-  if (!data.tracks && data.type == "track") return Promise.resolve([data]); //track
-  if (data.tracks.items)
-    if (data.tracks.items[0].track)
+  if (!data.tracks && data.type == "track") {
+    //track
+    return Promise.resolve([data]);
+  }
+  if (data.tracks.items) {
+    if (data.tracks.items[0].track) {
+      //playlist
       return Promise.resolve(data.tracks.items.map(t => t.track));
-    //playlist
-    else return Promise.resolve(data.tracks.items);
-  //album
-  else return Promise.resolve(data.tracks); //artist
+    } else {
+      //album
+      return Promise.resolve(data.tracks.items);
+    }
+  } else {
+    //artist
+    return Promise.resolve(data.tracks);
+  }
 }
 
 function getFirstTrack(data) {
