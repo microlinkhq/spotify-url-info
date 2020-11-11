@@ -19,35 +19,35 @@ test("getting data for non spotify url string should return rejection", () => {
 
 test("get tracks for spotify track", () => {
   expect.assertions(3);
-  return getTracks("https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas").then(
-    result => {
-      expect(Array.isArray(result)).toBe(true);
-      expect(result[0].name).toBe("Immaterial");
-      expect(result[0].external_urls.spotify).toContain("open.spotify.com/track");
-    }
-  );
+  return getTracks(
+    "https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas"
+  ).then(result => {
+    expect(Array.isArray(result)).toBe(true);
+    expect(result[0].name).toBe("Immaterial");
+    expect(result[0].external_urls.spotify).toContain("open.spotify.com/track");
+  });
 });
 
 test("get tracks for spotify artist", () => {
   expect.assertions(3);
-  return getTracks("https://open.spotify.com/artist/5a2w2tgpLwv26BYJf2qYwu").then(
-    result => {
-      expect(Array.isArray(result)).toBe(true);
-      expect(result[0].artists[0].name).toBe("Flume");
-      expect(result[0].external_urls.spotify).toContain("open.spotify.com/track");
-    }
-  );
+  return getTracks(
+    "https://open.spotify.com/artist/5a2w2tgpLwv26BYJf2qYwu"
+  ).then(result => {
+    expect(Array.isArray(result)).toBe(true);
+    expect(result[0].artists[0].name).toBe("Flume");
+    expect(result[0].external_urls.spotify).toContain("open.spotify.com/track");
+  });
 });
 
 test("get tracks for spotify album", () => {
   expect.assertions(3);
-  return getTracks("https://open.spotify.com/album/4tDBsfbHRJ9OdcMO9bmnai").then(
-    result => {
-        expect(Array.isArray(result)).toBe(true);
-        expect(result[0].name).toBe("BIPP");
-        expect(result[0].external_urls.spotify).toContain("open.spotify.com/track");
-    }
-  );
+  return getTracks(
+    "https://open.spotify.com/album/4tDBsfbHRJ9OdcMO9bmnai"
+  ).then(result => {
+    expect(Array.isArray(result)).toBe(true);
+    expect(result[0].name).toBe("BIPP");
+    expect(result[0].external_urls.spotify).toContain("open.spotify.com/track");
+  });
 });
 
 test("get tracks for spotify playlist", () => {
@@ -55,8 +55,8 @@ test("get tracks for spotify playlist", () => {
   return getTracks(
     "https://open.spotify.com/user/sophiemsmsmsm/playlist/3Q4cPwMHY95ZHXtmcU2xvH"
   ).then(result => {
-        expect(Array.isArray(result)).toBe(true);
-        expect(result[0].name).toBe("BIPP");
-        expect(result[0].external_urls.spotify).toContain("/track/");
+    expect(Array.isArray(result)).toBe(true);
+    expect(result[0].name).toBe("BIPP");
+    expect(result[0].external_urls.spotify).toContain("/track/");
   });
 });
