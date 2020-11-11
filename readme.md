@@ -50,10 +50,10 @@ returns any raw data we can scrape from spotify. There are no guarantees about t
 
 
 ```javascript
-await getTitles("https://open.spotify.com/playlist/3Q4cPwMHY95ZHXtmcU2xvH");
+await getTracks("https://open.spotify.com/playlist/3Q4cPwMHY95ZHXtmcU2xvH");
 ```
 
-returns array with tracks. Bellow is array with one track with guaranteed properties.
+returns array with tracks. Below is array with one track with guaranteed properties.
 
 ```json
 [
