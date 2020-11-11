@@ -48,7 +48,6 @@ await getData("https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas");
 
 returns any raw data we can scrape from spotify. There are no guarantees about the shape of this data, because it varies with different media and scraping methods. Handle it carefully.
 
-
 ```javascript
 await getTracks("https://open.spotify.com/playlist/3Q4cPwMHY95ZHXtmcU2xvH");
 ```
@@ -58,7 +57,7 @@ returns array with tracks. Below is array with one track with guaranteed propert
 ```json
 [
   {
-    "artists": [ 
+    "artists": [
       {
         "external_urls": {
           "spotify": "https://open.spotify.com/artist/5a2w2tgpLwv26BYJf2qYwu"
@@ -68,7 +67,7 @@ returns array with tracks. Below is array with one track with guaranteed propert
         "name": "SOPHIE",
         "type": "artist",
         "uri": "spotify:artist:5a2w2tgpLwv26BYJf2qYwu"
-      } 
+      }
     ],
     "duration_ms": 188520,
     "episode": false,
@@ -84,13 +83,18 @@ returns array with tracks. Below is array with one track with guaranteed propert
     "type": "track",
     "uri": "spotify:track:18yTgk0VgjB9XDj8h2q6Td"
   }
-]```
+]
+```
 
 ## Caveats
 
 This uses cheerio to scrape the spotify twitter widget so it is unsanctioned and likely to break. I'll have the tests run on a schedule on travis ci so that I get notified when it will inevitably break. Then I can hopefully fix it. A more stable alternative is scraping the opengraph tags for the links with [open-graph-scraper](https://github.com/jshemas/openGraphScraper). The biggest issues there are no audio previews for artists and the number of requests it can take to get all the needed metadata.
 
 ## Changelog
+
+### 2.2.0
+
+- add `getTracks` feature (thanks [@DaliborTrampota](https://github.com/DaliborTrampota)!)
 
 ### 2.1.0
 
@@ -132,3 +136,10 @@ Warning: The data returned from `getData` can change at any time. For example, t
 ### 1.0.0
 
 - first public release
+
+````
+
+```
+
+```
+````
