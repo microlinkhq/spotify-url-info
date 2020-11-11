@@ -75,20 +75,19 @@ function parseIntoPreview(data) {
 }
 
 function parseIntoTrackArray(data) {
-  if (!data.tracks && data.type == "track") {
-    //track
+  if (!data.tracks) {
+    // Is a track or a podcast episode
     return Promise.resolve([data]);
-  }
-  if (data.tracks.items) {
+  } else if (data.tracks.items) {
     if (data.tracks.items[0].track) {
-      //playlist
+      // Is a playlist
       return Promise.resolve(data.tracks.items.map(t => t.track));
     } else {
-      //album
+      // Is an album
       return Promise.resolve(data.tracks.items);
     }
   } else {
-    //artist
+    // Is an artist
     return Promise.resolve(data.tracks);
   }
 }

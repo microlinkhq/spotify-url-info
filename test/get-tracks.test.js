@@ -60,3 +60,14 @@ test("get tracks for spotify playlist", () => {
     expect(result[0].external_urls.spotify).toContain("/track/");
   });
 });
+
+test("get tracks for spotify episode", () => {
+  expect.assertions(3);
+  return getTracks(
+    "http://open.spotify.com/episode/64TORH3xleuD1wcnFsrH1E"
+  ).then(result => {
+    expect(Array.isArray(result)).toBe(true);
+    expect(result[0].name).toBe("Hasty Treat - Modules in Node");
+    expect(result[0].external_urls.spotify).toContain("/episode/");
+  });
+});
