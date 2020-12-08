@@ -10,7 +10,7 @@ This package can fetch useful metdata for spotify urls without needing a spotify
 ## Usage
 
 ```bash
-npm install spotfiy-url-info
+npm install spotify-url-info
 ```
 
 ```javascript
