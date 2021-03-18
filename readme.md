@@ -10,11 +10,11 @@ This package can fetch useful metdata for spotify urls without needing a spotify
 ## Usage
 
 ```bash
-npm install spotfiy-url-info
+npm install spotify-url-info
 ```
 
 ```javascript
-var { getData, getPreview } = require("spotify-url-info");
+var { getData, getPreview, getTracks } = require("spotify-url-info");
 ```
 
 There are two functions: getData provides the full available data, in a shape that is very similar to [what the spotify API returns](https://developer.spotify.com/documentation/web-api/reference/object-model/) and getPreview always returns the same fields for different types of resources (album, artist, playlist, track). The preview track is the first in the Album, Playlist, etc. Both take a spotify URL (play. or open.) as input and return a Promise.
