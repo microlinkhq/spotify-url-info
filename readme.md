@@ -52,7 +52,7 @@ returns any raw data we can scrape from spotify. There are no guarantees about t
 await getTracks("https://open.spotify.com/playlist/3Q4cPwMHY95ZHXtmcU2xvH");
 ```
 
-returns array with tracks. Below is array with one track with guaranteed properties.
+Returns array with tracks. Below is array with an example track. This data is passed on straight from spotify, so the shape could change. Only the first 100 tracks will be returned.
 
 ```json
 [
