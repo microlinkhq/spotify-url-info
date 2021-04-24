@@ -30,8 +30,9 @@ function getData(url) {
         e => e.attributes.findIndex(a => a.value === "resource") !== -1
       );
       const hydrateScript = scripts.filter(
-        e => e.children[0] && decodeURIComponent(e.children[0].content).includes(`"data":`)
+        e => e.children[0] && (/%22data%22%|"data":/).test(e.children[0].content)
       );
+
       if (resourceScript.length > 0) {
         // found data in the older embed style
         return JSON.parse(
@@ -40,10 +41,11 @@ function getData(url) {
       } else if (hydrateScript.length > 0) {
         // found hydration data
         // parsing via looking for { to be a little bit resistant to code changes
-        const scriptContent = decodeURIComponent(hydrateScript[0].children[0].content);
-        const dataString =
-          "{" + scriptContent.split("{").slice(1).join("{").trim();
-        return JSON.parse(dataString).data.entity;
+        const scriptContent = hydrateScript[0].children[0].content.includes('%22data%22%') ?
+          decodeURIComponent(hydrateScript[0].children[0].content) : hydrateScript[0].children[0].content;
+        const data =
+          JSON.parse("{" + scriptContent.split("{").slice(1).join("{").trim()).data;
+        return data.entity ? data.entity : data;
       } else {
         return Promise.reject(
           new Error(
