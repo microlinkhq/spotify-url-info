@@ -4,6 +4,7 @@
   "homepage": "https://github.com/karlsander/spotify-url-info#readme",
   "version": "2.2.0",
   "main": "index.js",
+  "types": "./typings/index.d.ts",
   "author": {
     "email": "kall@kall.ws",
     "name": "Karl Sander"
