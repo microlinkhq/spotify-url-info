@@ -34,7 +34,7 @@ test("get tracks for spotify artist", () => {
     "https://open.spotify.com/artist/5a2w2tgpLwv26BYJf2qYwu"
   ).then(result => {
     expect(Array.isArray(result)).toBe(true);
-    expect(result[0].artists[0].name).toBe("Flume");
+    expect(result[0].artists[0].name).toBe("SOPHIE");
     expect(result[0].external_urls.spotify).toContain("open.spotify.com/track");
   });
 });
