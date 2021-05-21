@@ -1,23 +1,32 @@
-# spotify-url-info
+<div align="center">
+  <img src="https://cdn.microlink.io/logo/banner.png" alt="microlink logo">
+</div>
 
-[![npm link](https://img.shields.io/npm/v/spotify-url-info.svg)](https://www.npmjs.com/package/spotify-url-info)
-[![Build Status](https://travis-ci.org/karlsander/spotify-url-info.svg?branch=master)](https://travis-ci.org/karlsander/spotify-url-info)
+![Last version](https://img.shields.io/github/tag/microlinkhq/spotify-url-info.svg?style=flat-square)
+[![Build Status](https://img.shields.io/travis/com/microlinkhq/spotify.url-info/master.svg?style=flat-square)](https://travis-ci.com/microlinkhq/spotify.url-info)
+[![Coverage Status](https://img.shields.io/coveralls/microlinkhq/spotify-url-info.svg?style=flat-square)](https://coveralls.io/github/microlinkhq/spotify.url-info)
+[![NPM Status](https://img.shields.io/npm/dm/spotify-url-info.svg?style=flat-square)](https://www.npmjs.org/package/spotify-url-info)
 
-This package can fetch useful metdata for spotify urls without needing a spotify API key. This is accomplished by some very light scraping. My usecase is providing a customized mini player preview.
+> Get metadata from Spotify URLs.
 
-**Warning:** This library will not work directly in the browser, because the spotify page that it scrapes does not allow cross-origion requests. You can use it in node.js, in serverless functions and in react native. Alternatively use a CORS proxy.
-
-## Usage
+## Install
 
 ```bash
 npm install spotify-url-info
 ```
 
+## Usage
+
 ```js
 const { getData, getPreview, getTracks } = require('spotify-url-info')
 ```
 
-There are two functions: getData provides the full available data, in a shape that is very similar to [what the spotify API returns](https://developer.spotify.com/documentation/web-api/reference/object-model/) and getPreview always returns the same fields for different types of resources (album, artist, playlist, track). The preview track is the first in the Album, Playlist, etc. Both take a spotify URL (play. or open.) as input and return a Promise.
+There are two functions:
+
+- `.getData`: Provides the full available data, in a shape that is very similar to [what the spotify API returns](https://developer.spotify.com/documentation/web-api/reference/object-model/).
+- `.getPreview`: Always returns the same fields for different types of resources (album, artist, playlist, track). The preview track is the first in the Album, Playlist, etc.
+
+Both take a spotify URL (play. or open.) as input and return a Promise.
 
 ```js
 getPreview('https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas')
@@ -89,60 +98,9 @@ Returns array with tracks. Below is array with an example track. This data is pa
 ]
 ```
 
-## Caveats
+## License
 
-This uses cheerio to scrape the spotify twitter widget so it is unsanctioned and likely to break. I'll have the tests run on a schedule on travis ci so that I get notified when it will inevitably break. Then I can hopefully fix it. A more stable alternative is scraping the opengraph tags for the links with [open-graph-scraper](https://github.com/jshemas/openGraphScraper). The biggest issues there are no audio previews for artists and the number of requests it can take to get all the needed metadata.
+**spotify-url-info** © [microlink.io](https://microlink.io), released under the [MIT](https://github.com/microlinkhq/spotify-url-info/blob/master/LICENSE.md) License.<br>
+Authored by [Karl Sander](https://github.com/karlsander) and maintained by [Kiko Beats](https://kikobeats.com) with help from [contributors](https://github.com/microlinkhq/spotify-url-info/contributors).
 
-## Changelog
-
-### 2.2.0
-
-- add `getTracks` feature (thanks [@DaliborTrampota](https://github.com/DaliborTrampota)!)
-
-### 2.1.0
-
-Warning: The data returned from `getData` can change at any time. For example, the newer podcast embed does not provide `dominantColor` anymore. I do not consider that a breaking change for this library. The only guarantee is that you get the data spotify makes available. You need to add safety checks in your application code. Only the data shape returned by `getPreview` is guaranteed.
-
-- fixes an issue with encoded data in the parsed html page (issue #55)
-- add support for scraping a different type of embed page, currently used in podcast episodes (fixes issue #54)
-
-### 2.0.0
-
-- Drop support for EOL node versions, which is technically breaking 🤷‍♂️
-
-### 1.4.0
-
-- Support for podcast episodes on spotify (contributed by @kikobeats)
-- new `description` and `date` fields in the preview object (contributed by @kikobeats)
-
-### 1.3.1
-
-- update dependencies
-
-### 1.3.0
-
-- remove lockfile
-
-### 1.2.0
-
-- now uses Himalaya for html parsing instead of cheerio, its more complex / brittle but the bundle is way smaller so it can be used inside apps
-
-### 1.1.1
-
-- generate embed url for preview with string concatination instead of using spotifyURL package
-- bump dependency versions
-
-### 1.1.0
-
-- add embed field to `getPreview` result
-
-### 1.0.0
-
-- first public release
-
-````
-
-```
-
-```
-````
+> [microlink.io](https://microlink.io) · GitHub [microlink.io](https://github.com/microlinkhq) · Twitter [@microlinkhq](https://twitter.com/microlinkhq)

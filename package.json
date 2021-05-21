@@ -1,6 +1,6 @@
 {
   "name": "spotify-url-info",
-  "description": "Get metadata for a spotify url without spotify API access",
+  "description": "Get metadata from Spotify URLs",
   "homepage": "https://github.com/karlsander/spotify-url-info#readme",
   "version": "2.2.1-0",
   "main": "index.js",
@@ -35,9 +35,11 @@
   },
   "keywords": [
     "embed",
+    "link-preview",
     "metadata",
     "music",
-    "spotify"
+    "spotify",
+    "spotify-urls"
   ],
   "dependencies": {
     "cross-fetch": "~3.0.5",
@@ -83,7 +85,7 @@
     "update": "ncu -u",
     "update:check": "ncu -- --error-level 2"
   },
-  "license": "ISC",
+  "license": "MIT",
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"

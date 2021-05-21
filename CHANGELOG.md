@@ -2,4 +2,47 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### 2.2.1-0 (2021-05-21)
+### 2.2.0
+
+- add `getTracks` feature (thanks [@DaliborTrampota](https://github.com/DaliborTrampota)!)
+
+### 2.1.0
+
+Warning: The data returned from `getData` can change at any time. For example, the newer podcast embed does not provide `dominantColor` anymore. I do not consider that a breaking change for this library. The only guarantee is that you get the data spotify makes available. You need to add safety checks in your application code. Only the data shape returned by `getPreview` is guaranteed.
+
+- fixes an issue with encoded data in the parsed html page (issue #55)
+- add support for scraping a different type of embed page, currently used in podcast episodes (fixes issue #54)
+
+### 2.0.0
+
+- Drop support for EOL node versions, which is technically breaking 🤷‍♂️
+
+### 1.4.0
+
+- Support for podcast episodes on spotify (contributed by @kikobeats)
+- new `description` and `date` fields in the preview object (contributed by @kikobeats)
+
+### 1.3.1
+
+- update dependencies
+
+### 1.3.0
+
+- remove lockfile
+
+### 1.2.0
+
+- now uses Himalaya for html parsing instead of cheerio, its more complex / brittle but the bundle is way smaller so it can be used inside apps
+
+### 1.1.1
+
+- generate embed url for preview with string concatination instead of using spotifyURL package
+- bump dependency versions
+
+### 1.1.0
+
+- add embed field to `getPreview` result
+
+### 1.0.0
+
+- first public release
