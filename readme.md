@@ -13,14 +13,15 @@ This package can fetch useful metdata for spotify urls without needing a spotify
 npm install spotify-url-info
 ```
 
-```javascript
-var { getData, getPreview, getTracks } = require("spotify-url-info");
+```js
+const { getData, getPreview, getTracks } = require('spotify-url-info')
 ```
 
 There are two functions: getData provides the full available data, in a shape that is very similar to [what the spotify API returns](https://developer.spotify.com/documentation/web-api/reference/object-model/) and getPreview always returns the same fields for different types of resources (album, artist, playlist, track). The preview track is the first in the Album, Playlist, etc. Both take a spotify URL (play. or open.) as input and return a Promise.
 
-```javascript
-await getPreview("https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas");
+```js
+getPreview('https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas')
+  .then(data => console.log(data))
 ```
 
 returns
@@ -42,14 +43,16 @@ returns
 
 The fields `description` and `date` will be undefined for some types of media that don't have this information.
 
-```javascript
-await getData("https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas");
+```js
+getData('https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas')
+  .then(data => console.log(data))
 ```
 
 returns any raw data we can scrape from spotify. There are no guarantees about the shape of this data, because it varies with different media and scraping methods. Handle it carefully.
 
-```javascript
-await getTracks("https://open.spotify.com/playlist/3Q4cPwMHY95ZHXtmcU2xvH");
+```js
+getTracks('https://open.spotify.com/playlist/3Q4cPwMHY95ZHXtmcU2xvH')
+  .then(data => console.log(data))
 ```
 
 Returns array with tracks. Below is array with an example track. This data is passed on straight from spotify, so the shape could change. Only the first 100 tracks will be returned.
