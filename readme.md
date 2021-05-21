@@ -3,7 +3,6 @@
 </div>
 
 ![Last version](https://img.shields.io/github/tag/microlinkhq/spotify-url-info.svg?style=flat-square)
-[![Build Status](https://img.shields.io/travis/com/microlinkhq/spotify.url-info/master.svg?style=flat-square)](https://travis-ci.com/microlinkhq/spotify.url-info)
 [![Coverage Status](https://img.shields.io/coveralls/microlinkhq/spotify-url-info.svg?style=flat-square)](https://coveralls.io/github/microlinkhq/spotify.url-info)
 [![NPM Status](https://img.shields.io/npm/dm/spotify-url-info.svg?style=flat-square)](https://www.npmjs.org/package/spotify-url-info)
 
