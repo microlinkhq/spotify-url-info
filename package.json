@@ -67,7 +67,8 @@
     "node": ">= 12"
   },
   "files": [
-    "index.js"
+    "index.js",
+    "typings"
   ],
   "scripts": {
     "clean": "rm -rf node_modules",
