@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [2.2.1](https://github.com/karlsander/spotify-url-info/compare/v2.2.1-0...v2.2.1) (2021-05-21)
+
+
+### Bug Fixes
+
+* coverage ([d4c3a62](https://github.com/karlsander/spotify-url-info/commit/d4c3a6237d751332d5ecbade0fd64381309571db))
+
 ### 2.2.0
 
 - add `getTracks` feature (thanks [@DaliborTrampota](https://github.com/DaliborTrampota)!)
