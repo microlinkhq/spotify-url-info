@@ -1,5 +1,7 @@
 <div align="center">
   <img src="https://cdn.microlink.io/logo/banner.png" alt="microlink logo">
+  <br>
+  <br>
 </div>
 
 ![Last version](https://img.shields.io/github/tag/microlinkhq/spotify-url-info.svg?style=flat-square)
