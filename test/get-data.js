@@ -44,7 +44,7 @@ test('get data for spotify track', async t => {
 
   t.is(data.type, 'track')
   t.is(data.name, 'Immaterial')
-  t.true(data.external_urls.spotify.includes('open.spotify.com/track'))
+  t.true(data.external_urls.spotify?.includes('open.spotify.com/track'))
 })
 
 test('get data for spotify artist', async t => {
@@ -54,7 +54,7 @@ test('get data for spotify artist', async t => {
 
   t.is(data.type, 'artist')
   t.is(data.name, 'SOPHIE')
-  t.true(data.external_urls.spotify.includes('open.spotify.com/artist'))
+  t.true(data.external_urls.spotify?.includes('open.spotify.com/artist'))
 })
 
 test('get data for spotify album', async t => {
@@ -64,7 +64,7 @@ test('get data for spotify album', async t => {
 
   t.is(data.type, 'album')
   t.is(data.name, 'PRODUCT')
-  t.true(data.external_urls.spotify.includes('open.spotify.com/album'))
+  t.true(data.external_urls.spotify?.includes('open.spotify.com/album'))
 })
 
 test('get data for spotify playlist', async t => {
@@ -74,7 +74,7 @@ test('get data for spotify playlist', async t => {
 
   t.is(data.type, 'playlist')
   t.is(data.name, 'SOPHIE – PRODUCT')
-  t.true(data.external_urls.spotify.includes('/playlist/'))
+  t.true(data.external_urls.spotify?.includes('/playlist/'))
 })
 
 test('get data for spotify episode', async t => {
@@ -84,5 +84,5 @@ test('get data for spotify episode', async t => {
 
   t.is(data.type, 'episode')
   t.is(data.name, 'Hasty Treat - Modules in Node')
-  t.true(data.external_urls.spotify.includes('/episode/'))
+  t.true(data.external_urls.spotify?.includes('/episode/'))
 })
