@@ -6,7 +6,7 @@ const { parse } = require('himalaya')
 
 const SUPPORTED_TYPES = ['album', 'artist', 'episode', 'playlist', 'track']
 
-function getData (url) {
+function getData (url, opts) {
   let parsedURL = {}
 
   try {
@@ -23,7 +23,7 @@ function getData (url) {
 
   const embedURL = spotifyURI.formatEmbedURL(parsedURL)
 
-  return fetch(embedURL)
+  return fetch(embedURL, opts)
     .then(res => res.text())
     .then(parse)
     .then(embed => {
@@ -148,6 +148,8 @@ function sanityCheck (data) {
 
 module.exports.getData = getData
 
-module.exports.getPreview = url => getData(url).then(parseIntoPreview)
+module.exports.getPreview = (url, opts) =>
+  getData(url, opts).then(parseIntoPreview)
 
-module.exports.getTracks = url => getData(url).then(parseIntoTrackArray)
+module.exports.getTracks = (url, opts) =>
+  getData(url, opts).then(parseIntoTrackArray)
