@@ -61,10 +61,12 @@ test('get preview for spotify track', async t => {
   t.is(preview.type, 'track')
   t.is(preview.artist, 'SOPHIE')
   t.is(preview.track, 'Immaterial')
-  t.true(preview.image.includes('://'))
-  t.true(preview.audio.includes('/mp3-preview/'))
-  t.true(preview.link.includes('open.spotify.com/track/'))
-  t.true(preview.embed.includes('https://embed.spotify.com/?uri=spotify:track'))
+  t.true(preview.image?.includes('://'))
+  t.true(preview.audio?.includes('/mp3-preview/'))
+  t.true(preview.link?.includes('open.spotify.com/track/'))
+  t.true(
+    preview.embed?.includes('https://embed.spotify.com/?uri=spotify:track')
+  )
 })
 
 test('get preview for spotify artist', async t => {
@@ -82,10 +84,10 @@ test('get preview for spotify artist', async t => {
     'https://embed.spotify.com/?uri=spotify:artist:5a2w2tgpLwv26BYJf2qYwu'
   )
 
-  t.true(preview.artist.includes('SOPHIE'))
-  t.true(preview.image.includes('://'))
-  t.true(preview.audio.includes('/mp3-preview/'))
-  t.true(preview.link.includes('open.spotify.com/artist/'))
+  t.true(preview.artist?.includes('SOPHIE'))
+  t.true(preview.image?.includes('://'))
+  t.true(preview.audio?.includes('/mp3-preview/'))
+  t.true(preview.link?.includes('open.spotify.com/artist/'))
 })
 
 // test('get preview for spotify album', () => {

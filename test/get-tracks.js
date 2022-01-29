@@ -43,7 +43,7 @@ test('get tracks for spotify track', async t => {
   )
   t.true(Array.isArray(result))
   t.is(result[0].name, 'Immaterial')
-  t.true(result[0].external_urls.spotify.includes('/track/'))
+  t.true(result[0].external_urls.spotify?.includes('/track/'))
 })
 
 test('get tracks for spotify artist', async t => {
@@ -52,7 +52,7 @@ test('get tracks for spotify artist', async t => {
   )
   t.true(Array.isArray(result))
   t.is(result[0].name, 'Immaterial')
-  t.true(result[0].external_urls.spotify.includes('/track/'))
+  t.true(result[0].external_urls.spotify?.includes('/track/'))
 })
 
 test('get tracks for spotify album', async t => {
@@ -61,7 +61,7 @@ test('get tracks for spotify album', async t => {
   )
   t.true(Array.isArray(result))
   t.is(result[0].name, 'BIPP')
-  t.true(result[0].external_urls.spotify.includes('/track/'))
+  t.true(result[0].external_urls.spotify?.includes('/track/'))
 })
 
 test('get tracks for spotify playlist', async t => {
@@ -70,7 +70,7 @@ test('get tracks for spotify playlist', async t => {
   )
   t.true(Array.isArray(result))
   t.is(result[0].name, 'BIPP')
-  t.true(result[0].external_urls.spotify.includes('/track/'))
+  t.true(result[0].external_urls.spotify?.includes('/track/'))
 })
 
 test('get tracks for spotify episode', async t => {
@@ -79,5 +79,5 @@ test('get tracks for spotify episode', async t => {
   )
   t.true(Array.isArray(result))
   t.is(result[0].name, 'Hasty Treat - Modules in Node')
-  t.true(result[0].external_urls.spotify.includes('/episode/'))
+  t.true(result[0].external_urls.spotify?.includes('/episode/'))
 })
