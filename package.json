@@ -71,8 +71,7 @@
     "node": ">= 12"
   },
   "files": [
-    "index.js",
-    "typings"
+    "src"
   ],
   "scripts": {
     "clean": "rm -rf node_modules",
