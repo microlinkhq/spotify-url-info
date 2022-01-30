@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 2.2.5 (2022-01-30)
+
+
+### Bug Fixes
+
+* files meta field ([0679da6](https://github.com/microlinkhq/spotify-url-info/commit/0679da64572287bce4b0d96ff65a6840e2df17b2)), closes [#77](https://github.com/microlinkhq/spotify-url-info/issues/77)
+
 ### [2.2.4](https://github.com/microlinkhq/spotify-url-info/compare/v2.2.3...v2.2.4) (2022-01-29)
 
 ### [2.2.3](https://github.com/microlinkhq/spotify-url-info/compare/v2.2.2...v2.2.3) (2021-05-21)
