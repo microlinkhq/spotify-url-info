@@ -2,7 +2,7 @@
   "name": "spotify-url-info",
   "description": "Get metadata from Spotify URLs",
   "homepage": "https://github.com/microlinkhq/spotify-url-info",
-  "version": "2.2.5",
+  "version": "2.2.6",
   "main": "src/index.js",
   "author": {
     "email": "kall@kall.ws",
