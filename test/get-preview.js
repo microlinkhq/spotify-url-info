@@ -154,7 +154,10 @@ test('get preview for spotify playlist with episode inside', async t => {
   )
 
   t.is(preview.date, undefined)
-  t.is(preview.description, undefined)
+  t.is(
+    preview.description,
+    'https:&#x2F;&#x2F;github.com&#x2F;microlinkhq&#x2F;spotify-url-info'
+  )
   t.is(preview.title, 'spotify-url-info')
   t.is(preview.type, 'playlist')
   t.is(preview.artist, undefined)
@@ -165,6 +168,26 @@ test('get preview for spotify playlist with episode inside', async t => {
   t.is(
     preview.embed,
     'https://embed.spotify.com/?uri=spotify:playlist:1hMCPzPBQRkLRuwspFp2eA'
+  )
+})
+
+test('get preview for spotify collaboratie playlist', async t => {
+  const preview = await getPreview(
+    'https://open.spotify.com/playlist/29n3VgifrVF9ZxFV9B6yRA'
+  )
+
+  t.is(preview.date, undefined)
+  t.is(preview.description, 'feat Joseba')
+  t.is(preview.title, '🤘 ROCK')
+  t.is(preview.type, 'playlist')
+  t.is(preview.artist, 'Metalocalypse: Dethklok')
+  t.is(preview.track, 'Awaken')
+  t.is(preview.image.includes('://'), true)
+  t.is(preview.audio.includes('/mp3-preview/'), true)
+  t.is(preview.link.includes('open.spotify.com/playlist/'), true)
+  t.is(
+    preview.embed,
+    'https://embed.spotify.com/?uri=spotify:playlist:29n3VgifrVF9ZxFV9B6yRA'
   )
 })
 
