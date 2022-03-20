@@ -76,11 +76,13 @@ function parseIntoPreview (data) {
   const images = data.type === 'track' ? data.album.images : data.images
   const date = data.album ? data.album.release_date : data.release_date
 
-  const artist = []
-    .concat(track.artists)
-    .filter(Boolean)
-    .map(a => a.name)
-    .join(' & ')
+  const artist = track.show
+    ? track.show.publisher
+    : []
+        .concat(track.artists)
+        .filter(Boolean)
+        .map(a => a.name)
+        .join(' & ')
 
   return Promise.resolve({
     date,
@@ -90,7 +92,7 @@ function parseIntoPreview (data) {
     description: data.description || undefined,
     artist: artist || undefined,
     image: images.reduce((a, b) => (a.width > b.width ? a : b)).url,
-    audio: track.preview_url,
+    audio: track.audio_preview_url || track.preview_url,
     link: data.external_urls.spotify,
     embed: `https://embed.spotify.com/?uri=${data.uri}`
   })
