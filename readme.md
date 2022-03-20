@@ -18,23 +18,42 @@ npm install spotify-url-info
 
 ## Usage
 
+In order to use the library, you have to provide the fetch agent to use:
+
 ```js
-const { getData, getPreview, getTracks } = require('spotify-url-info')
+const fetch = require('isomorphic-unfetch')
+const { getData, getPreview, getTracks } = require('spotify-url-info')(fetch)
 ```
 
 There are two functions:
 
-- `.getData`: Provides the full available data, in a shape that is very similar to [what the spotify API returns](https://developer.spotify.com/documentation/web-api/reference/object-model/).
-- `.getPreview`: Always returns the same fields for different types of resources (album, artist, playlist, track). The preview track is the first in the Album, Playlist, etc.
+- **getData**<br/>
+Provides the full available data, in a shape that is very similar to [what the spotify API returns](https://developer.spotify.com/documentation/web-api/reference/object-model/).
 
-Both take a spotify URL (play. or open.) as input and return a Promise.
+- **getPreview** <br/>
+Always returns the same fields for different types of resources (album, artist, playlist, track). The preview track is the first in the Album, Playlist, etc.
+
+- **getTracks** <br/>
+Returns array with tracks. This data is passed on straight from spotify, so the shape could change.Only the first 100 tracks will be returned.
+
+All the methods receive a Spotify URL (play. or open.) as first argument:
 
 ```js
 getPreview('https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas')
   .then(data => console.log(data))
 ```
 
-returns
+Additionally, you can provide fetch agent options as second argument:
+
+```js
+getPreview('https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas', {
+  headers: {
+    'user-agent': 'googlebot'
+  }
+}).then(data => console.log(data))
+```
+
+It returns back the information related to the Spotify URL:
 
 ```json
 {
@@ -51,53 +70,9 @@ returns
 }
 ```
 
-The fields `description` and `date` will be undefined for some types of media that don't have this information.
+When a field can't be retrieved, the value will be `undefined`.
 
-```js
-getData('https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas')
-  .then(data => console.log(data))
-```
-
-returns any raw data we can scrape from spotify. There are no guarantees about the shape of this data, because it varies with different media and scraping methods. Handle it carefully.
-
-```js
-getTracks('https://open.spotify.com/playlist/3Q4cPwMHY95ZHXtmcU2xvH')
-  .then(data => console.log(data))
-```
-
-Returns array with tracks. Below is array with an example track. This data is passed on straight from spotify, so the shape could change. Only the first 100 tracks will be returned.
-
-```json
-[
-  {
-    "artists": [
-      {
-        "external_urls": {
-          "spotify": "https://open.spotify.com/artist/5a2w2tgpLwv26BYJf2qYwu"
-        },
-        "href": "https://api.spotify.com/v1/artists/5a2w2tgpLwv26BYJf2qYwu",
-        "id": "5a2w2tgpLwv26BYJf2qYwu",
-        "name": "SOPHIE",
-        "type": "artist",
-        "uri": "spotify:artist:5a2w2tgpLwv26BYJf2qYwu"
-      }
-    ],
-    "duration_ms": 188520,
-    "episode": false,
-    "explicit": false,
-    "external_urls": {
-      "spotify": "https://open.spotify.com/track/18yTgk0VgjB9XDj8h2q6Td"
-    },
-    "href": "https://api.spotify.com/v1/tracks/18yTgk0VgjB9XDj8h2q6Td",
-    "id": "18yTgk0VgjB9XDj8h2q6Td",
-    "name": "JUST LIKE WE NEVER SAID GOODBYE",
-    "popularity": 34,
-    "preview_url": "https://p.scdn.co/mp3-preview/d5790004de973f83756311075125ffc965e522c8?cid=a46f5c5745a14fbf826186da8da5ecc3",
-    "type": "track",
-    "uri": "spotify:track:18yTgk0VgjB9XDj8h2q6Td"
-  }
-]
-```
+There are no guarantees about the shape of this data, because it varies with different media and scraping methods. Handle it carefully.
 
 ## License
 

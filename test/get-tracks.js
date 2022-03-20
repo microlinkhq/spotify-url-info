@@ -1,6 +1,6 @@
 'use strict'
 
-const { fetch } = require('cross-fetch')
+const fetch = require('isomorphic-unfetch')
 const test = require('ava')
 
 const { getTracks } = require('..')(fetch)
