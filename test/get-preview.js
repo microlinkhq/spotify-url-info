@@ -148,6 +148,26 @@ test('get preview for spotify episode', async t => {
   )
 })
 
+test('get preview for spotify playlist with episode inside', async t => {
+  const preview = await getPreview(
+    'https://open.spotify.com/playlist/1hMCPzPBQRkLRuwspFp2eA'
+  )
+
+  t.is(preview.date, undefined)
+  t.is(preview.description, undefined)
+  t.is(preview.title, 'spotify-url-info')
+  t.is(preview.type, 'playlist')
+  t.is(preview.artist, undefined)
+  t.is(preview.track, 'Jealous - Eyedress Speed up')
+  t.is(preview.image.includes('://'), true)
+  t.is(preview.audio, undefined)
+  t.is(preview.link.includes('open.spotify.com/playlist/'), true)
+  t.is(
+    preview.embed,
+    'https://embed.spotify.com/?uri=spotify:playlist:1hMCPzPBQRkLRuwspFp2eA'
+  )
+})
+
 test('get preview for spotify album with constructed uri', async t => {
   const preview = await getPreview('spotify:album:7vQKfsKKrI0xObMqojazHR')
 
