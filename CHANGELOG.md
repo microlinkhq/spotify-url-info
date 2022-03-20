@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.0.0](https://github.com/microlinkhq/spotify-url-info/compare/v2.2.9...v3.0.0) (2022-03-20)
+
+
+### ⚠ BREAKING CHANGES
+
+* The library will be shipped without a default fetch agent.
+
+### Features
+
+* pass fetch agent as necessary dependency ([649778b](https://github.com/microlinkhq/spotify-url-info/commit/649778be126d9ced15228f7c8c7f9ee85d7e9f7c))
+
 ### 2.2.9 (2022-03-20)
 
 ### 2.2.8 (2022-03-20)
