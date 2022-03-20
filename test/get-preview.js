@@ -61,12 +61,10 @@ test('get preview for spotify track', async t => {
   t.is(preview.type, 'track')
   t.is(preview.artist, 'SOPHIE')
   t.is(preview.track, 'Immaterial')
-  t.true(preview.image?.includes('://'))
-  t.true(preview.audio?.includes('/mp3-preview/'))
-  t.true(preview.link?.includes('open.spotify.com/track/'))
-  t.true(
-    preview.embed?.includes('https://embed.spotify.com/?uri=spotify:track')
-  )
+  t.true(preview.image.includes('://'))
+  t.true(preview.audio.includes('/mp3-preview/'))
+  t.true(preview.link.includes('open.spotify.com/track/'))
+  t.true(preview.embed.includes('https://embed.spotify.com/?uri=spotify:track'))
 })
 
 test('get preview for spotify artist', async t => {
@@ -84,29 +82,29 @@ test('get preview for spotify artist', async t => {
     'https://embed.spotify.com/?uri=spotify:artist:5a2w2tgpLwv26BYJf2qYwu'
   )
 
-  t.true(preview.artist?.includes('SOPHIE'))
-  t.true(preview.image?.includes('://'))
-  t.true(preview.audio?.includes('/mp3-preview/'))
-  t.true(preview.link?.includes('open.spotify.com/artist/'))
+  t.true(preview.artist.includes('SOPHIE'))
+  t.true(preview.image.includes('://'))
+  t.true(preview.audio.includes('/mp3-preview/'))
+  t.true(preview.link.includes('open.spotify.com/artist/'))
 })
 
 test('get preview for spotify album', async t => {
   const preview = await getPreview(
-    'https://open.spotify.com/album/4tDBsfbHRJ9OdcMO9bmnai'
+    'https://open.spotify.com/album/7vQKfsKKrI0xObMqojazHR'
   )
 
-  t.is(preview.date, '2015-11-27')
+  t.is(preview.date, '2019-09-06')
   t.is(preview.description, undefined)
-  t.is(preview.title, 'PRODUCT')
+  t.is(preview.title, "OIL OF EVERY PEARL'S UN-INSIDES NON-STOP REMIX ALBUM")
   t.is(preview.type, 'album')
   t.is(preview.artist.includes('SOPHIE'), true)
-  t.is(preview.track, 'BIPP')
+  t.is(preview.track, 'Cold World')
   t.is(preview.image.includes('://'), true)
-  t.is(preview.audio, null)
+  t.true(preview.audio.includes('/mp3-preview/'))
   t.is(preview.link.includes('open.spotify.com/album/'), true)
   t.is(
     preview.embed,
-    'https://embed.spotify.com/?uri=spotify:album:4tDBsfbHRJ9OdcMO9bmnai'
+    'https://embed.spotify.com/?uri=spotify:album:7vQKfsKKrI0xObMqojazHR'
   )
 })
 
@@ -151,20 +149,20 @@ test('get preview for spotify episode', async t => {
 })
 
 test('get preview for spotify album with constructed uri', async t => {
-  const preview = await getPreview('spotify:album:4tDBsfbHRJ9OdcMO9bmnai')
+  const preview = await getPreview('spotify:album:7vQKfsKKrI0xObMqojazHR')
 
-  t.is(preview.date, '2015-11-27')
+  t.is(preview.date, '2019-09-06')
   t.is(preview.description, undefined)
-  t.is(preview.title, 'PRODUCT')
+  t.is(preview.title, "OIL OF EVERY PEARL'S UN-INSIDES NON-STOP REMIX ALBUM")
   t.is(preview.type, 'album')
   t.is(preview.artist.includes('SOPHIE'), true)
-  t.is(preview.track, 'BIPP')
+  t.is(preview.track, 'Cold World')
   t.is(preview.image.includes('://'), true)
-  t.is(preview.audio, null)
+  t.is(preview.audio.includes('/mp3-preview/'), true)
   t.is(preview.link.includes('open.spotify.com/album/'), true)
   t.is(
     preview.embed,
-    'https://embed.spotify.com/?uri=spotify:album:4tDBsfbHRJ9OdcMO9bmnai'
+    'https://embed.spotify.com/?uri=spotify:album:7vQKfsKKrI0xObMqojazHR'
   )
 })
 
