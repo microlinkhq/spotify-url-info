@@ -1,8 +1,9 @@
 'use strict'
 
+const { fetch } = require('cross-fetch')
 const test = require('ava')
 
-const { getPreview } = require('..')
+const { getPreview } = require('..')(fetch)
 
 test('getting preview for empty url should return rejection', async t => {
   const error = await t.throwsAsync(() => getPreview(''), {
