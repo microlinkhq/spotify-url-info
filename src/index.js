@@ -1,12 +1,12 @@
 'use strict'
 
 const spotifyURI = require('spotify-uri')
-const { fetch } = require('cross-fetch')
+
 const { parse } = require('himalaya')
 
 const SUPPORTED_TYPES = ['album', 'artist', 'episode', 'playlist', 'track']
 
-function getData (url, opts) {
+const createGetData = fetch => (url, opts) => {
   let parsedURL = {}
 
   try {
@@ -71,7 +71,7 @@ function getData (url, opts) {
     .then(sanityCheck)
 }
 
-function parseIntoPreview (data) {
+function toPreview (data) {
   const track = getFirstTrack(data)
   const images = data.type === 'track' ? data.album.images : data.images
   const date = data.album ? data.album.release_date : data.release_date
@@ -98,7 +98,7 @@ function parseIntoPreview (data) {
   })
 }
 
-function parseIntoTrackArray (data) {
+function getTracks (data) {
   if (!data.tracks) {
     // Is a track or a podcast episode
     return Promise.resolve([data])
@@ -154,10 +154,11 @@ function sanityCheck (data) {
   return Promise.resolve(data)
 }
 
-module.exports.getData = getData
-
-module.exports.getPreview = (url, opts) =>
-  getData(url, opts).then(parseIntoPreview)
-
-module.exports.getTracks = (url, opts) =>
-  getData(url, opts).then(parseIntoTrackArray)
+module.exports = fetch => {
+  const getData = createGetData(fetch)
+  return {
+    getData,
+    getPreview: (url, opts) => getData(url, opts).then(toPreview),
+    getTracks: (url, opts) => getData(url, opts).then(getTracks)
+  }
+}

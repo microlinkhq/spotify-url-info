@@ -30,7 +30,6 @@
     "spotify-urls"
   ],
   "dependencies": {
-    "cross-fetch": "~3.1.4",
     "himalaya": "~1.1.0",
     "spotify-uri": "~2.2.0"
   },
@@ -41,6 +40,7 @@
     "c8": "latest",
     "ci-publish": "latest",
     "conventional-github-releaser": "latest",
+    "cross-fetch": "latest",
     "finepack": "latest",
     "git-authors-cli": "latest",
     "nano-staged": "latest",
