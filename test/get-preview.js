@@ -163,7 +163,7 @@ test('get preview for spotify playlist with episode inside', async t => {
   t.is(preview.artist, undefined)
   t.is(preview.track, 'Jealous - Eyedress Speed up')
   t.is(preview.image.includes('://'), true)
-  t.is(preview.audio, undefined)
+  t.is(preview.audio.includes('/mp3-preview/'), true)
   t.is(preview.link.includes('open.spotify.com/playlist/'), true)
   t.is(
     preview.embed,

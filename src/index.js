@@ -90,7 +90,7 @@ function parseIntoPreview (data) {
     description: data.description || undefined,
     artist: artist || undefined,
     image: images.reduce((a, b) => (a.width > b.width ? a : b)).url,
-    audio: track.preview_url,
+    audio: track.preview_url || track.audio_preview_url || undefined,
     link: data.external_urls.spotify,
     embed: `https://embed.spotify.com/?uri=${data.uri}`
   })
