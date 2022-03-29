@@ -39,46 +39,46 @@ test('getting data for non spotify url string should return rejection', async t 
 })
 
 test('get tracks for spotify track', async t => {
-  const result = await getTracks(
+  const tracks = await getTracks(
     'https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas'
   )
-  t.true(Array.isArray(result))
-  t.is(result[0].name, 'Immaterial')
-  t.true(result[0].external_urls.spotify?.includes('/track/'))
+  t.true(Array.isArray(tracks))
+  t.is(tracks[0].name, 'Immaterial')
+  t.true(tracks[0].external_urls.spotify?.includes('/track/'))
 })
 
 test('get tracks for spotify artist', async t => {
-  const result = await getTracks(
+  const tracks = await getTracks(
     'https://open.spotify.com/artist/5a2w2tgpLwv26BYJf2qYwu'
   )
-  t.true(Array.isArray(result))
-  t.is(result[0].name, 'Immaterial')
-  t.true(result[0].external_urls.spotify?.includes('/track/'))
+  t.true(Array.isArray(tracks))
+  t.is(tracks[0].name, 'Immaterial')
+  t.true(tracks[0].external_urls.spotify?.includes('/track/'))
 })
 
 test('get tracks for spotify album', async t => {
-  const result = await getTracks(
+  const tracks = await getTracks(
     'https://open.spotify.com/album/4tDBsfbHRJ9OdcMO9bmnai'
   )
-  t.true(Array.isArray(result))
-  t.is(result[0].name, 'BIPP')
-  t.true(result[0].external_urls.spotify?.includes('/track/'))
+  t.true(Array.isArray(tracks))
+  t.is(tracks[0].name, 'BIPP')
+  t.true(tracks[0].external_urls.spotify?.includes('/track/'))
 })
 
 test('get tracks for spotify playlist', async t => {
-  const result = await getTracks(
+  const tracks = await getTracks(
     'https://open.spotify.com/user/sophiemsmsmsm/playlist/3Q4cPwMHY95ZHXtmcU2xvH'
   )
-  t.true(Array.isArray(result))
-  t.is(result[0].name, 'BIPP')
-  t.true(result[0].external_urls.spotify?.includes('/track/'))
+  t.true(Array.isArray(tracks))
+  t.is(tracks[0].name, 'BIPP')
+  t.true(tracks[0].external_urls.spotify?.includes('/track/'))
 })
 
 test('get tracks for spotify episode', async t => {
-  const result = await getTracks(
+  const tracks = await getTracks(
     'http://open.spotify.com/episode/64TORH3xleuD1wcnFsrH1E'
   )
-  t.true(Array.isArray(result))
-  t.is(result[0].name, 'Hasty Treat - Modules in Node')
-  t.true(result[0].external_urls.spotify?.includes('/episode/'))
+  t.true(Array.isArray(tracks))
+  t.is(tracks[0].name, 'Hasty Treat - Modules in Node')
+  t.true(tracks[0].sharingInfo.shareUrl?.includes('/episode/'))
 })

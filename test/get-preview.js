@@ -139,7 +139,7 @@ test('get preview for spotify episode', async t => {
   t.is(preview.type, 'episode')
   t.is(preview.artist.includes('Wes Bos & Scott Tolinski'), true)
   t.is(preview.track, 'Syntax - Tasty Web Development Treats')
-  t.is(preview.date, '2020-01-06')
+  t.is(preview.date, '2020-01-06T14:00:00Z')
   t.is(preview.image.includes('://'), true)
   t.is(preview.audio.includes('/mp3-preview/'), true)
   t.is(preview.link.includes('/episode/'), true)
