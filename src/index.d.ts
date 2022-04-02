@@ -1,7 +1,9 @@
-declare module 'spotify-url-info' {
-  export function getData(url: string, options?: object): any;
-
-  export function getPreview(url: string, options?: object): Promise<Preview>;
+declare module "spotify-url-info" {
+  interface Spotify {
+    getData(url: string, options?: object): any;
+    getPreview(url: string, options?: object): Promise<Preview>;
+    getTracks(url: string, options?: object): Promise<Tracks[]>;
+  }
 
   export interface Preview {
     title: string;
@@ -15,8 +17,6 @@ declare module 'spotify-url-info' {
     date: string;
     description: string;
   }
-
-  export function getTracks(url: string, options?: object): Promise<Tracks[]>;
 
   export interface Tracks {
     artists?: ArtistsEntity[] | null;
@@ -43,4 +43,6 @@ declare module 'spotify-url-info' {
   export interface ExternalUrls {
     spotify: string;
   }
+
+  export default function spotify(fetch: any): Spotify;
 }
