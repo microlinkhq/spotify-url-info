@@ -117,9 +117,10 @@ function getLink (data) {
 
 function getPreview (data) {
   const track = getFirstTrack(data)
+  const date = getDate(data)
 
   return {
-    date: getDate(data),
+    date: date ? new Date(date).toISOString() : date,
     title: data.name,
     type: data.type,
     track: track.name,
