@@ -57,7 +57,7 @@ test('get preview for spotify track', async t => {
   )
 
   t.is(preview.title, 'Immaterial')
-  t.is(preview.date, '2018-06-15')
+  t.is(preview.date, '2018-06-15T00:00:00.000Z')
   t.is(preview.description, undefined)
   t.is(preview.type, 'track')
   t.is(preview.artist, 'SOPHIE')
@@ -94,7 +94,7 @@ test('get preview for spotify album', async t => {
     'https://open.spotify.com/album/7vQKfsKKrI0xObMqojazHR'
   )
 
-  t.is(preview.date, '2019-09-06')
+  t.is(preview.date, '2019-09-06T00:00:00.000Z')
   t.is(preview.description, undefined)
   t.is(preview.title, "OIL OF EVERY PEARL'S UN-INSIDES NON-STOP REMIX ALBUM")
   t.is(preview.type, 'album')
@@ -139,7 +139,7 @@ test('get preview for spotify episode', async t => {
   t.is(preview.type, 'episode')
   t.is(preview.artist.includes('Wes Bos & Scott Tolinski'), true)
   t.is(preview.track, 'Syntax - Tasty Web Development Treats')
-  t.is(preview.date, '2020-01-06T14:00:00Z')
+  t.is(preview.date, '2020-01-06T14:00:00.000Z')
   t.is(preview.image.includes('://'), true)
   t.is(preview.audio.includes('/mp3-preview/'), true)
   t.is(preview.link.includes('/episode/'), true)
@@ -195,7 +195,7 @@ test('get preview for spotify collaboratie playlist', async t => {
 test('get preview for spotify album with constructed uri', async t => {
   const preview = await getPreview('spotify:album:7vQKfsKKrI0xObMqojazHR')
 
-  t.is(preview.date, '2019-09-06')
+  t.is(preview.date, '2019-09-06T00:00:00.000Z')
   t.is(preview.description, undefined)
   t.is(preview.title, "OIL OF EVERY PEARL'S UN-INSIDES NON-STOP REMIX ALBUM")
   t.is(preview.type, 'album')
@@ -215,7 +215,7 @@ test('get preview for spotify album with play url', async t => {
     'https://play.spotify.com/album/4tDBsfbHRJ9OdcMO9bmnai'
   )
 
-  t.is(preview.date, '2015-11-27')
+  t.is(preview.date, '2015-11-27T00:00:00.000Z')
   t.is(preview.description, undefined)
   t.is(preview.title, 'PRODUCT')
   t.is(preview.type, 'album')
@@ -235,7 +235,7 @@ test('get preview for spotify Album with twitter embed url', async t => {
     'https://open.spotify.com/embed/album/4tDBsfbHRJ9OdcMO9bmnai?utm_campaign=twitter-player&utm_source=open&utm_medium=twitter'
   )
 
-  t.is(preview.date, '2015-11-27')
+  t.is(preview.date, '2015-11-27T00:00:00.000Z')
   t.is(preview.description, undefined)
   t.is(preview.title, 'PRODUCT')
   t.is(preview.type, 'album')
@@ -255,7 +255,7 @@ test('get preview for spotify Track with constructed embed url', async t => {
     'https://embed.spotify.com/?uri=spotify:album:4tDBsfbHRJ9OdcMO9bmnai'
   )
 
-  t.is(preview.date, '2015-11-27')
+  t.is(preview.date, '2015-11-27T00:00:00.000Z')
   t.is(preview.description, undefined)
   t.is(preview.title, 'PRODUCT')
   t.is(preview.type, 'album')

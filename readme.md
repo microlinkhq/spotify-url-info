@@ -65,7 +65,7 @@ It returns back the information related to the Spotify URL:
   "audio": "https://p.scdn.co/mp3-preview/6be8eb12ff18ae09b7a6d38ff1e5327fd128a74e?cid=162b7dc01f3a4a2ca32ed3cec83d1e02",
   "link": "https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas",
   "embed": "https://embed.spotify.com/?uri=spotify:track:5nTtCOCds6I0PHMNtqelas",
-  "date": "2018-06-15",
+  "date": "2018-06-15T00:00:00.000Z",
   "description": "description of a podcast episode"
 }
 ```
