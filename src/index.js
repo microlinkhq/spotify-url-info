@@ -193,6 +193,11 @@ module.exports = fetch => {
   return {
     getData,
     getPreview: (url, opts) => getData(url, opts).then(getPreview),
-    getTracks: (url, opts) => getData(url, opts).then(getTracks)
+    getTracks: (url, opts) => getData(url, opts).then(getTracks),
+    getDetails: (url, opts) =>
+      getData(url, opts).then(data => ({
+        preview: getPreview(data),
+        tracks: getTracks(data)
+      }))
   }
 }
