@@ -3,6 +3,7 @@ declare module "spotify-url-info" {
     getData(url: string, options?: object): any;
     getPreview(url: string, options?: object): Promise<Preview>;
     getTracks(url: string, options?: object): Promise<Tracks[]>;
+    getDetails(url: string, options?: object): Promise<{preview: Preview, tracks: Tracks[]}>;
   }
 
   export interface Preview {
