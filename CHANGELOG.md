@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.1.0](https://github.com/microlinkhq/spotify-url-info/compare/v3.0.7...v3.1.0) (2022-04-12)
+
+
+### Features
+
+* add getDetails which returns both preview and tracks ([7e72e4d](https://github.com/microlinkhq/spotify-url-info/commit/7e72e4d047907b287a97c3e0cd7be0bf9eff197d))
+
 ### 3.0.7 (2022-04-11)
 
 ### 3.0.6 (2022-04-08)
