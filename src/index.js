@@ -188,7 +188,7 @@ function normalizeData ({ data }) {
   return data
 }
 
-module.exports = fetch => {
+function spotifyUrlInfo (fetch) {
   const getData = createGetData(fetch)
   return {
     getData,
@@ -201,3 +201,5 @@ module.exports = fetch => {
       }))
   }
 }
+
+module.exports = spotifyUrlInfo
