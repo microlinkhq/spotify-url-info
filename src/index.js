@@ -30,14 +30,14 @@ const createGetData = fetch => async (url, opts) => {
     e => e.attributes.findIndex(a => a.value === 'resource') !== -1
   )
 
-  const hydrateScript = scripts.filter(
-    e => e.children[0] && /%22data%22%|"data":/.test(e.children[0].content)
-  )
-
   if (resourceScript.length > 0) {
     // found data in the older embed style
     return JSON.parse(decodeURIComponent(resourceScript[0].children[0].content))
   }
+
+  const hydrateScript = scripts.filter(
+    e => e.children[0] && /%22data%22%|"data":/.test(e.children[0].content)
+  )
 
   if (hydrateScript.length > 0) {
     // found hydration data
