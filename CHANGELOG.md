@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 3.1.3 (2022-08-05)
+
+
+### Bug Fixes
+
+* get description from an episode ([2aba83d](https://github.com/microlinkhq/spotify-url-info/commit/2aba83da3ab8b3ba39363b487f35c503f86e3bd2))
+
 ### 3.1.2 (2022-05-15)
 
 ### 3.1.1 (2022-05-02)
