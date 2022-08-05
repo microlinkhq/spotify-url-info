@@ -85,5 +85,4 @@ test('get data for spotify episode', async t => {
 
   t.is(data.type, 'episode')
   t.is(data.name, 'Hasty Treat - Modules in Node')
-  t.true(data.sharingInfo.shareUrl?.includes('/episode/'))
 })

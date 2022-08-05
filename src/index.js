@@ -109,7 +109,7 @@ function getArtistTrack (track) {
 function getLink (data) {
   switch (data.type) {
     case TYPE.EPISODE:
-      return data.sharingInfo.shareUrl
+      return spotifyURI.formatOpenURL(data.uri)
     default:
       return data.external_urls.spotify
   }
@@ -124,8 +124,8 @@ function getPreview (data) {
     title: data.name,
     type: data.type,
     track: track.name,
-    description: data.description || undefined,
-    artist: getArtistTrack(track),
+    description: data.description || track.description,
+    artist: getArtistTrack(track) || track.artist,
     image: getImages(data).reduce((a, b) => (a.width > b.width ? a : b)).url,
     audio: track.audio_preview_url || track.preview_url,
     link: getLink(data),
@@ -157,10 +157,12 @@ function getFirstTrack (data) {
     case TYPE.ARTIST:
       return data.tracks[0]
     case TYPE.EPISODE: {
-      const { podcast, audioPreview } = data
+      const { subtitle, audioPreview } = data
+      const [artist, description] = data.subtitle.split(' - ')
       return {
-        artists: podcast.publisher.name.split(' and ').map(name => ({ name })),
-        name: podcast.name,
+        artist,
+        description,
+        name: subtitle,
         preview_url: audioPreview.url
       }
     }

@@ -80,5 +80,4 @@ test('get tracks for spotify episode', async t => {
   )
   t.true(Array.isArray(tracks))
   t.is(tracks[0].name, 'Hasty Treat - Modules in Node')
-  t.true(tracks[0].sharingInfo.shareUrl?.includes('/episode/'))
 })
