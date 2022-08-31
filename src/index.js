@@ -26,13 +26,36 @@ const createGetData = fetch => async (url, opts) => {
     .children.filter(e => e.tagName === 'body')[0]
     .children.filter(e => e.tagName === 'script')
 
-  const resourceScript = scripts.filter(
+  const resourceScriptOld = scripts.filter(
     e => e.attributes.findIndex(a => a.value === 'resource') !== -1
   )
 
-  if (resourceScript.length > 0) {
+  if (resourceScriptOld.length > 0) {
     // found data in the older embed style
-    return JSON.parse(decodeURIComponent(resourceScript[0].children[0].content))
+    return JSON.parse(
+      decodeURIComponent(resourceScriptOld[0].children[0].content)
+    )
+  }
+
+  const resourceScriptNew = scripts.filter(
+    e => e.attributes.findIndex(a => a.value === 'initial-state') !== -1
+  )
+
+  if (resourceScriptNew.length > 0) {
+    // found data in the new embed style
+    const data = JSON.parse(
+      Buffer.from(
+        decodeURIComponent(resourceScriptNew[0].children[0].content),
+        'base64'
+      )
+    ).data.entity
+    // they removed/renamed some things, which for backwards compatibility we need to add back
+    data.external_urls = {
+      spotify: 'https://open.spotify.com/track/' + data.uri
+    }
+    data.release_date = data.releaseDate.isoString
+    data.audio = data.audioPreview.url
+    return data
   }
 
   const hydrateScript = scripts.filter(
@@ -77,7 +100,7 @@ function getParsedUrl (url) {
 function getImages (data) {
   switch (data.type) {
     case TYPE.TRACK:
-      return data.album.images
+      return data.album?.images || data.coverArt.sources
     case TYPE.EPISODE:
       return data.coverArt.sources
     default:
@@ -88,11 +111,11 @@ function getImages (data) {
 function getDate (data) {
   switch (data.type) {
     case TYPE.TRACK:
-      return data.album.release_date
+      return data.album?.release_date || data.releaseDate.isoString
     case TYPE.EPISODE:
       return data.releaseDate.isoString
     default:
-      return data.release_date
+      return data.release_date || data.releaseDate?.isoString
   }
 }
 
@@ -127,7 +150,8 @@ function getPreview (data) {
     description: data.description || track.description,
     artist: getArtistTrack(track) || track.artist,
     image: getImages(data).reduce((a, b) => (a.width > b.width ? a : b)).url,
-    audio: track.audio_preview_url || track.preview_url,
+    audio:
+      track.audio_preview_url || track.audioPreview?.url || track.preview_url,
     link: getLink(data),
     embed: `https://embed.spotify.com/?uri=${data.uri}`
   }
