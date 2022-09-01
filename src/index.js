@@ -22,32 +22,29 @@ const createGetData = fetch => async (url, opts) => {
   const embed = parse(text)
 
   const scripts = embed
-    .filter(e => e.tagName === 'html')[0]
-    .children.filter(e => e.tagName === 'body')[0]
-    .children.filter(e => e.tagName === 'script')
+    .find(el => el.tagName === 'html')
+    .children.find(el => el.tagName === 'body')
+    .children.filter(({ tagName }) => tagName === 'script')
 
-  const resourceScriptOld = scripts.filter(
-    e => e.attributes.findIndex(a => a.value === 'resource') !== -1
+  let script = scripts.find(script =>
+    script.attributes.some(({ value }) => value === 'resource')
   )
 
-  if (resourceScriptOld.length > 0) {
+  if (script !== undefined) {
     // found data in the older embed style
-    return JSON.parse(
-      decodeURIComponent(resourceScriptOld[0].children[0].content)
-    )
+    return normalizeData({
+      data: JSON.parse(decodeURIComponent(script.children[0].content))
+    })
   }
 
-  const resourceScriptNew = scripts.filter(
-    e => e.attributes.findIndex(a => a.value === 'initial-state') !== -1
+  script = scripts.find(script =>
+    script.attributes.some(({ value }) => value === 'initial-state')
   )
 
-  if (resourceScriptNew.length > 0) {
+  if (script !== undefined) {
     // found data in the new embed style
     const data = JSON.parse(
-      Buffer.from(
-        decodeURIComponent(resourceScriptNew[0].children[0].content),
-        'base64'
-      )
+      Buffer.from(decodeURIComponent(script.children[0].content), 'base64')
     ).data.entity
     // they removed/renamed some things, which for backwards compatibility we need to add back
     data.external_urls = {
@@ -55,31 +52,7 @@ const createGetData = fetch => async (url, opts) => {
     }
     data.release_date = data.releaseDate.isoString
     data.audio = data.audioPreview.url
-    return data
-  }
-
-  const hydrateScript = scripts.filter(
-    e => e.children[0] && /%22data%22%|"data":/.test(e.children[0].content)
-  )
-
-  if (hydrateScript.length > 0) {
-    // found hydration data
-    // parsing via looking for { to be a little bit resistant to code changes
-    const scriptContent = hydrateScript[0].children[0].content.includes(
-      '%22data%22%'
-    )
-      ? decodeURIComponent(hydrateScript[0].children[0].content)
-      : hydrateScript[0].children[0].content
-    return normalizeData(
-      JSON.parse(
-        '{' +
-          scriptContent
-            .split('{')
-            .slice(1)
-            .join('{')
-            .trim()
-      )
-    )
+    return normalizeData({ data })
   }
 
   throw new Error(
