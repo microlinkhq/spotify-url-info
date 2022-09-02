@@ -33,7 +33,7 @@ const createGetData = fetch => async (url, opts) => {
   if (script !== undefined) {
     // found data in the older embed style
     return normalizeData({
-      data: JSON.parse(decodeURIComponent(script.children[0].content))
+      data: JSON.parse(Buffer.from(script.children[0].content, 'base64'))
     })
   }
 
@@ -43,9 +43,8 @@ const createGetData = fetch => async (url, opts) => {
 
   if (script !== undefined) {
     // found data in the new embed style
-    const data = JSON.parse(
-      Buffer.from(decodeURIComponent(script.children[0].content), 'base64')
-    ).data.entity
+    const data = JSON.parse(Buffer.from(script.children[0].content, 'base64'))
+      .data.entity
     return normalizeData({ data })
   }
 
