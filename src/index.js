@@ -18,7 +18,7 @@ const createGetData = fetch => async (url, opts) => {
   const embedURL = spotifyURI.formatEmbedURL(parsedUrl)
 
   const response = await fetch(embedURL, opts)
-  const text = await response.text()
+  const text = response.text ? await response.text() : response.data
   const embed = parse(text)
 
   const scripts = embed
