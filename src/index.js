@@ -47,9 +47,7 @@ const createGetData = fetch => async (url, opts) => {
       Buffer.from(decodeURIComponent(script.children[0].content), 'base64')
     ).data.entity
     // they removed/renamed some things, which for backwards compatibility we need to add back
-    data.external_urls = {
-      spotify: 'https://open.spotify.com/track/' + data.uri
-    }
+    data.external_urls = { spotify: spotifyURI.formatOpenURL(data.uri) }
     data.release_date = data.releaseDate.isoString
     data.audio = data.audioPreview.url
     return normalizeData({ data })
