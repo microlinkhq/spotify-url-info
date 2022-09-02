@@ -50,7 +50,7 @@ const createGetData = fetch => async (url, opts) => {
   }
 
   throw new Error(
-    "Couldn't find any data in embed page that we know how to parse"
+    "Couldn't find any data in embed page that we know how to parse.\nPlease report the problem at https://github.com/microlinkhq/spotify-url-info/issues."
   )
 }
 
@@ -67,7 +67,6 @@ function getParsedUrl (url) {
 function getImages (data) {
   switch (data.type) {
     case TYPE.TRACK:
-      return data.album?.images || data.coverArt.sources
     case TYPE.EPISODE:
       return data.coverArt.sources
     default:
@@ -78,11 +77,10 @@ function getImages (data) {
 function getDate (data) {
   switch (data.type) {
     case TYPE.TRACK:
-      return data.album?.release_date || data.releaseDate.isoString
     case TYPE.EPISODE:
       return data.releaseDate.isoString
     default:
-      return data.release_date || data.releaseDate?.isoString
+      return data.release_date
   }
 }
 
@@ -97,7 +95,12 @@ function getArtistTrack (track) {
 }
 
 function getLink (data) {
-  return data.external_urls?.spotify || spotifyURI.formatOpenURL(data.uri)
+  switch (data.type) {
+    case TYPE.EPISODE:
+      return spotifyURI.formatOpenURL(data.uri)
+    default:
+      return data.external_urls.spotify
+  }
 }
 
 function getPreview (data) {
@@ -156,13 +159,6 @@ function getFirstTrack (data) {
 }
 
 function normalizeData ({ data }) {
-  data = data.entity ? data.entity : data
-
-  if (data.episode) {
-    data = data.episode
-    data.type = TYPE.EPISODE
-  }
-
   if (!data || !data.type || !data.name) {
     throw new Error("Data doesn't seem to be of the right shape to parse")
   }
