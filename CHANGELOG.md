@@ -2,6 +2,14 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [3.1.5](https://github.com/microlinkhq/spotify-url-info/compare/v3.1.4...v3.1.5) (2022-09-02)
+
+
+### Bug Fixes
+
+* changes in Spotify embeds ([53a5401](https://github.com/microlinkhq/spotify-url-info/commit/53a5401ac34a92681c3174ecbe63ed4550720f07))
+* ensure spotify URL is valid ([c2e3436](https://github.com/microlinkhq/spotify-url-info/commit/c2e343651ba1df801532501259705bec80b0d5c3))
+
 ### 3.1.4 (2022-08-05)
 
 ### 3.1.3 (2022-08-05)
