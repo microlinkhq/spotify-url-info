@@ -91,7 +91,13 @@ function getArtistTrack (track) {
         .concat(track.artists)
         .filter(Boolean)
         .map(a => a.name)
-        .join(' & ')
+        .reduce(
+          (acc, name, index, array) =>
+            index === 0
+              ? name
+              : acc + (array.length - 1 === index ? ' & ' : ', ') + name,
+          ''
+        )
 }
 
 function getLink (data) {

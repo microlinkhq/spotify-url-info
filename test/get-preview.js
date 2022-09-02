@@ -269,3 +269,10 @@ test('get preview for spotify Track with constructed embed url', async t => {
     'https://embed.spotify.com/?uri=spotify:album:4tDBsfbHRJ9OdcMO9bmnai'
   )
 })
+
+test('list multiple artists as one', async t => {
+  const preview = await getPreview(
+    'https://open.spotify.com/track/5ddFjrPG8NgQQ6xlOQIVd2'
+  )
+  t.is(preview.artist, 'C. Tangana, Niño de Elche & La Húngara')
+})
