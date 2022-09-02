@@ -39,9 +39,8 @@ test('getting data for non spotify url string should return rejection', async t 
 })
 
 test('get tracks for spotify track', async t => {
-  const tracks = await getTracks(
-    'https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas'
-  )
+  const url = 'https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas'
+  const tracks = await getTracks(url)
   t.true(Array.isArray(tracks))
   t.is(tracks[0].name, 'Immaterial')
   t.true(tracks[0].external_urls.spotify?.includes('/track/'))

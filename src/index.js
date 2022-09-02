@@ -46,10 +46,6 @@ const createGetData = fetch => async (url, opts) => {
     const data = JSON.parse(
       Buffer.from(decodeURIComponent(script.children[0].content), 'base64')
     ).data.entity
-    // they removed/renamed some things, which for backwards compatibility we need to add back
-    data.external_urls = { spotify: spotifyURI.formatOpenURL(data.uri) }
-    data.release_date = data.releaseDate.isoString
-    data.audio = data.audioPreview.url
     return normalizeData({ data })
   }
 
@@ -101,12 +97,7 @@ function getArtistTrack (track) {
 }
 
 function getLink (data) {
-  switch (data.type) {
-    case TYPE.EPISODE:
-      return spotifyURI.formatOpenURL(data.uri)
-    default:
-      return data.external_urls.spotify
-  }
+  return data.external_urls?.spotify || spotifyURI.formatOpenURL(data.uri)
 }
 
 function getPreview (data) {
@@ -182,12 +173,17 @@ function normalizeData ({ data }) {
     )
   }
 
+  if (data.type === TYPE.TRACK) {
+    data.external_urls = { spotify: spotifyURI.formatOpenURL(data.uri) }
+  }
+
   return data
 }
 
 function spotifyUrlInfo (fetch) {
   const getData = createGetData(fetch)
   return {
+    getLink,
     getData,
     getPreview: (url, opts) => getData(url, opts).then(getPreview),
     getTracks: (url, opts) => getData(url, opts).then(getTracks),
