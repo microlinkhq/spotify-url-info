@@ -22,45 +22,35 @@ const createGetData = fetch => async (url, opts) => {
   const embed = parse(text)
 
   const scripts = embed
-    .filter(e => e.tagName === 'html')[0]
-    .children.filter(e => e.tagName === 'body')[0]
-    .children.filter(e => e.tagName === 'script')
+    .find(el => el.tagName === 'html')
+    .children.find(el => el.tagName === 'body')
+    .children.filter(({ tagName }) => tagName === 'script')
 
-  const resourceScript = scripts.filter(
-    e => e.attributes.findIndex(a => a.value === 'resource') !== -1
+  let script = scripts.find(script =>
+    script.attributes.some(({ value }) => value === 'resource')
   )
 
-  if (resourceScript.length > 0) {
+  if (script !== undefined) {
     // found data in the older embed style
-    return JSON.parse(decodeURIComponent(resourceScript[0].children[0].content))
+    return normalizeData({
+      data: JSON.parse(decodeURIComponent(script.children[0].content))
+    })
   }
 
-  const hydrateScript = scripts.filter(
-    e => e.children[0] && /%22data%22%|"data":/.test(e.children[0].content)
+  script = scripts.find(script =>
+    script.attributes.some(({ value }) => value === 'initial-state')
   )
 
-  if (hydrateScript.length > 0) {
-    // found hydration data
-    // parsing via looking for { to be a little bit resistant to code changes
-    const scriptContent = hydrateScript[0].children[0].content.includes(
-      '%22data%22%'
-    )
-      ? decodeURIComponent(hydrateScript[0].children[0].content)
-      : hydrateScript[0].children[0].content
-    return normalizeData(
-      JSON.parse(
-        '{' +
-          scriptContent
-            .split('{')
-            .slice(1)
-            .join('{')
-            .trim()
-      )
-    )
+  if (script !== undefined) {
+    // found data in the new embed style
+    const data = JSON.parse(
+      Buffer.from(decodeURIComponent(script.children[0].content), 'base64')
+    ).data.entity
+    return normalizeData({ data })
   }
 
   throw new Error(
-    "Couldn't find any data in embed page that we know how to parse"
+    "Couldn't find any data in embed page that we know how to parse.\nPlease report the problem at https://github.com/microlinkhq/spotify-url-info/issues."
   )
 }
 
@@ -77,7 +67,6 @@ function getParsedUrl (url) {
 function getImages (data) {
   switch (data.type) {
     case TYPE.TRACK:
-      return data.album.images
     case TYPE.EPISODE:
       return data.coverArt.sources
     default:
@@ -88,7 +77,6 @@ function getImages (data) {
 function getDate (data) {
   switch (data.type) {
     case TYPE.TRACK:
-      return data.album.release_date
     case TYPE.EPISODE:
       return data.releaseDate.isoString
     default:
@@ -127,7 +115,8 @@ function getPreview (data) {
     description: data.description || track.description,
     artist: getArtistTrack(track) || track.artist,
     image: getImages(data).reduce((a, b) => (a.width > b.width ? a : b)).url,
-    audio: track.audio_preview_url || track.preview_url,
+    audio:
+      track.audio_preview_url || track.audioPreview?.url || track.preview_url,
     link: getLink(data),
     embed: `https://embed.spotify.com/?uri=${data.uri}`
   }
@@ -170,13 +159,6 @@ function getFirstTrack (data) {
 }
 
 function normalizeData ({ data }) {
-  data = data.entity ? data.entity : data
-
-  if (data.episode) {
-    data = data.episode
-    data.type = TYPE.EPISODE
-  }
-
   if (!data || !data.type || !data.name) {
     throw new Error("Data doesn't seem to be of the right shape to parse")
   }
@@ -187,12 +169,17 @@ function normalizeData ({ data }) {
     )
   }
 
+  if (data.type === TYPE.TRACK) {
+    data.external_urls = { spotify: spotifyURI.formatOpenURL(data.uri) }
+  }
+
   return data
 }
 
 function spotifyUrlInfo (fetch) {
   const getData = createGetData(fetch)
   return {
+    getLink,
     getData,
     getPreview: (url, opts) => getData(url, opts).then(getPreview),
     getTracks: (url, opts) => getData(url, opts).then(getTracks),

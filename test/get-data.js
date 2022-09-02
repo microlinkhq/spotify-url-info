@@ -3,7 +3,7 @@
 const fetch = require('isomorphic-unfetch')
 const test = require('ava')
 
-const { getData } = require('..')(fetch)
+const { getLink, getData } = require('..')(fetch)
 
 test('getting data for empty url should return rejection', async t => {
   const error = await t.throwsAsync(() => getData(''), {
@@ -39,33 +39,30 @@ test('getting data for non spotify url string should return rejection', async t 
 })
 
 test('get data for spotify track', async t => {
-  const data = await getData(
-    'https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas'
-  )
+  const url = 'https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas'
+  const data = await getData(url)
 
   t.is(data.type, 'track')
   t.is(data.name, 'Immaterial')
-  t.true(data.external_urls.spotify?.includes('open.spotify.com/track'))
+  t.is(getLink(data), url)
 })
 
 test('get data for spotify artist', async t => {
-  const data = await getData(
-    'https://open.spotify.com/artist/5a2w2tgpLwv26BYJf2qYwu'
-  )
+  const url = 'https://open.spotify.com/artist/5a2w2tgpLwv26BYJf2qYwu'
+  const data = await getData(url)
 
   t.is(data.type, 'artist')
   t.is(data.name, 'SOPHIE')
-  t.true(data.external_urls.spotify?.includes('open.spotify.com/artist'))
+  t.is(getLink(data), url)
 })
 
 test('get data for spotify album', async t => {
-  const data = await getData(
-    'https://open.spotify.com/album/4tDBsfbHRJ9OdcMO9bmnai'
-  )
+  const url = 'https://open.spotify.com/album/4tDBsfbHRJ9OdcMO9bmnai'
+  const data = await getData(url)
 
   t.is(data.type, 'album')
   t.is(data.name, 'PRODUCT')
-  t.true(data.external_urls.spotify?.includes('open.spotify.com/album'))
+  t.is(getLink(data), url)
 })
 
 test('get data for spotify playlist', async t => {
@@ -75,7 +72,10 @@ test('get data for spotify playlist', async t => {
 
   t.is(data.type, 'playlist')
   t.is(data.name, 'SOPHIE – PRODUCT')
-  t.true(data.external_urls.spotify?.includes('/playlist/'))
+  t.is(
+    getLink(data),
+    'https://open.spotify.com/playlist/3Q4cPwMHY95ZHXtmcU2xvH'
+  )
 })
 
 test('get data for spotify episode', async t => {
