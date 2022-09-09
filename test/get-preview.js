@@ -151,7 +151,7 @@ test('get preview for spotify episode', async t => {
 
 test('get preview for spotify playlist with episode inside', async t => {
   const preview = await getPreview(
-    'https://open.spotify.com/playlist/1hMCPzPBQRkLRuwspFp2eA'
+    'https://open.spotify.com/playlist/26q1NUbChiQDqjwO4SDdRD'
   )
 
   t.is(preview.date, undefined)
@@ -159,16 +159,16 @@ test('get preview for spotify playlist with episode inside', async t => {
     preview.description,
     'https:&#x2F;&#x2F;github.com&#x2F;microlinkhq&#x2F;spotify-url-info'
   )
-  t.is(preview.title, 'spotify-url-info')
+  t.is(preview.title, 'spotify-url-with-episode')
   t.is(preview.type, 'playlist')
-  t.is(preview.artist, 'Zosia Okk')
-  t.is(preview.track, 'Jealous - Eyedress Speed up')
+  t.is(preview.artist, 'DroidsAndDruids')
+  t.is(preview.track, '#DDMAG9 Live: Novelettes con Celia Añó')
   t.is(preview.image.includes('://'), true)
   t.is(preview.audio.includes('/mp3-preview/'), true)
   t.is(preview.link.includes('open.spotify.com/playlist/'), true)
   t.is(
     preview.embed,
-    'https://embed.spotify.com/?uri=spotify:playlist:1hMCPzPBQRkLRuwspFp2eA'
+    'https://embed.spotify.com/?uri=spotify:playlist:26q1NUbChiQDqjwO4SDdRD'
   )
 })
 
