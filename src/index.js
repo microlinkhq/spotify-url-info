@@ -11,6 +11,17 @@ const TYPE = {
   TRACK: 'track'
 }
 
+const ERROR = {
+  REPORT:
+    'Please report the problem at https://github.com/microlinkhq/spotify-url-info/issues.',
+  NOT_DATA: "Couldn't find any data in embed page that we know how to parse.",
+  NOT_SCRIPTS: "Couldn't find scripts to get the data."
+}
+
+const throwError = message => {
+  throw new TypeError(`${message}\n${ERROR.REPORT}`)
+}
+
 const SUPPORTED_TYPES = Object.values(TYPE)
 
 const createGetData = fetch => async (url, opts) => {
@@ -21,9 +32,12 @@ const createGetData = fetch => async (url, opts) => {
   const text = await response.text()
   const embed = parse(text)
 
-  const scripts = embed
-    .find(el => el.tagName === 'html')
-    .children.find(el => el.tagName === 'body')
+  let scripts = embed.find(el => el.tagName === 'html')
+
+  if (scripts === undefined) return throwError(ERROR.NOT_SCRIPTS)
+
+  scripts = scripts.children
+    .find(el => el.tagName === 'body')
     .children.filter(({ tagName }) => tagName === 'script')
 
   let script = scripts.find(script =>
@@ -48,9 +62,7 @@ const createGetData = fetch => async (url, opts) => {
     return normalizeData({ data })
   }
 
-  throw new Error(
-    "Couldn't find any data in embed page that we know how to parse.\nPlease report the problem at https://github.com/microlinkhq/spotify-url-info/issues."
-  )
+  return throwError(ERROR.NOT_DATA)
 }
 
 function getParsedUrl (url) {

@@ -38,6 +38,19 @@ test('getting data for non spotify url string should return rejection', async t 
   )
 })
 
+test('getting data for a deleted spotify url should return rejection', async t => {
+  const error = await t.throwsAsync(
+    () => getData('https://open.spotify.com/playlist/7E6aXqOtSnwECFLiCosTmM'),
+    {
+      instanceOf: TypeError
+    }
+  )
+  t.is(
+    error.message,
+    "Couldn't find scripts to get the data.\nPlease report the problem at https://github.com/microlinkhq/spotify-url-info/issues."
+  )
+})
+
 test('get data for spotify track', async t => {
   const url = 'https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas'
   const data = await getData(url)
