@@ -80,3 +80,16 @@ test('get tracks for spotify episode', async t => {
   t.true(Array.isArray(tracks))
   t.is(tracks[0].name, 'Hasty Treat - Modules in Node')
 })
+
+test('validate duration for get tracks track', async t => {
+  const tracks = await getTracks(
+    'https://open.spotify.com/track/3j7ttprPTsaqGMcpUfZuOA?si=84aa707553cb4601'
+  )
+
+  t.true(Array.isArray(tracks))
+  for (const track of tracks) {
+    t.true(!!track.duration_ms)
+  }
+  t.is(tracks[0].name, 'fool4love')
+  t.true(tracks[0].external_urls.spotify?.includes('/track/'))
+})

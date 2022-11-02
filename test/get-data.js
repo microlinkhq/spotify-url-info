@@ -99,3 +99,14 @@ test('get data for spotify episode', async t => {
   t.is(data.type, 'episode')
   t.is(data.name, 'Hasty Treat - Modules in Node')
 })
+
+test('validate duration for get data spotify track', async t => {
+  // this link populates as .duration from spotify
+  const url = 'https://open.spotify.com/track/56rgqDNRIqKq0qIMdu7r4r'
+  const data = await getData(url)
+  t.is(data.duration, 176000)
+  t.is(data.duration_ms, 176000)
+  t.is(data.type, 'track')
+  t.is(data.name, 'Get Lost (feat. Ashe) - Ford. Remix')
+  t.is(getLink(data), url)
+})
