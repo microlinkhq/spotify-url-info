@@ -190,6 +190,8 @@ function normalizeData ({ data }) {
     data.external_urls = { spotify: spotifyURI.formatOpenURL(data.uri) }
   }
 
+  data.duration_ms ??= data.duration
+
   return data
 }
 
