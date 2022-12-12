@@ -73,6 +73,9 @@
     "update:check": "ncu -- --error-level 2"
   },
   "license": "MIT",
+  "ava": {
+    "serial": true
+  },
   "commitlint": {
     "extends": [
       "@commitlint/config-conventional"
