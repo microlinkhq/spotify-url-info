@@ -47,7 +47,7 @@ test('getting data for a deleted spotify url should return rejection', async t =
   )
   t.is(
     error.message,
-    "Couldn't find scripts to get the data.\nPlease report the problem at https://github.com/microlinkhq/spotify-url-info/issues."
+    "Couldn't find any data in embed page that we know how to parse.\nPlease report the problem at https://github.com/microlinkhq/spotify-url-info/issues."
   )
 })
 
