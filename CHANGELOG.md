@@ -2,6 +2,8 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 3.2.2 (2022-12-29)
+
 ### [3.2.1](https://github.com/microlinkhq/spotify-url-info/compare/v3.2.0-0...v3.2.1) (2022-12-29)
 
 
