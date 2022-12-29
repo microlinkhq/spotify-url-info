@@ -75,25 +75,11 @@ function getParsedUrl (url) {
   }
 }
 
-function getImages (data) {
-  switch (data.type) {
-    case TYPE.TRACK:
-    case TYPE.EPISODE:
-      return data.coverArt.sources
-    default:
-      return data.images
-  }
-}
+const getImages = data => data.coverArt?.sources || data.images
 
-function getDate (data) {
-  switch (data.type) {
-    case TYPE.TRACK:
-    case TYPE.EPISODE:
-      return data.releaseDate.isoString
-    default:
-      return data.release_date
-  }
-}
+const getDate = data => data.releaseDate?.isoString || data.release_date
+
+const getLink = data => spotifyURI.formatOpenURL(data.uri)
 
 function getArtistTrack (track) {
   return track.show
@@ -111,17 +97,8 @@ function getArtistTrack (track) {
         )
 }
 
-function getLink (data) {
-  switch (data.type) {
-    case TYPE.EPISODE:
-      return spotifyURI.formatOpenURL(data.uri)
-    default:
-      return data.external_urls.spotify
-  }
-}
-
 function getPreview (data) {
-  const track = getFirstTrack(data)
+  const track = toTrack(data.trackList ? data.trackList[0] : data)
   const date = getDate(data)
 
   return {
@@ -129,51 +106,25 @@ function getPreview (data) {
     title: data.name,
     type: data.type,
     track: track.name,
-    description: data.description || track.description,
-    artist: getArtistTrack(track) || track.artist,
+    description: data.description || data.subtitle || track.description,
+    artist: track.artist,
     image: getImages(data).reduce((a, b) => (a.width > b.width ? a : b)).url,
-    audio:
-      track.audio_preview_url || track.audioPreview?.url || track.preview_url,
+    audio: track.previewUrl,
     link: getLink(data),
     embed: `https://embed.spotify.com/?uri=${data.uri}`
   }
 }
 
-function getTracks (data) {
-  switch (data.type) {
-    case TYPE.PLAYLIST:
-      return data.tracks.items.map(({ track }) => track)
-    case TYPE.ARTIST:
-      return data.tracks
-    case TYPE.ALBUM:
-      return data.tracks.items
-    default:
-      return [data]
-  }
-}
+const toTrack = track => ({
+  artist: getArtistTrack(track) || track.subtitle,
+  duration: track.duration,
+  name: track.title,
+  previewUrl: track.isPlayable ? track.audioPreview.url : undefined,
+  uri: track.uri
+})
 
-function getFirstTrack (data) {
-  switch (data.type) {
-    case TYPE.TRACK:
-      return data
-    case TYPE.PLAYLIST:
-      return data.tracks.items[0].track
-    case TYPE.ALBUM:
-      return data.tracks.items[0]
-    case TYPE.ARTIST:
-      return data.tracks[0]
-    case TYPE.EPISODE: {
-      const { subtitle, audioPreview } = data
-      const [artist, description] = data.subtitle.split(' - ')
-      return {
-        artist,
-        description,
-        name: subtitle,
-        preview_url: audioPreview.url
-      }
-    }
-  }
-}
+const getTracks = data =>
+  data.trackList ? data.trackList.map(toTrack) : [toTrack(data)]
 
 function normalizeData ({ data }) {
   if (!data || !data.type || !data.name) {
@@ -186,9 +137,7 @@ function normalizeData ({ data }) {
     )
   }
 
-  if (data.type === TYPE.TRACK) {
-    data.external_urls = { spotify: spotifyURI.formatOpenURL(data.uri) }
-  }
+  data.type = data.uri.split(':')[1]
 
   return data
 }
