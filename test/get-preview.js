@@ -74,10 +74,11 @@ test('get preview for spotify artist', async t => {
   )
 
   t.is(preview.date, undefined)
-  t.is(preview.description, undefined)
+  t.is(preview.description, 'Top tracks')
   t.is(preview.track, 'Immaterial')
   t.is(preview.title, 'SOPHIE')
   t.is(preview.type, 'artist')
+
   t.is(
     preview.embed,
     'https://embed.spotify.com/?uri=spotify:artist:5a2w2tgpLwv26BYJf2qYwu'
@@ -94,8 +95,7 @@ test('get preview for spotify album', async t => {
     'https://open.spotify.com/album/7vQKfsKKrI0xObMqojazHR'
   )
 
-  t.is(preview.date, '2019-09-06T00:00:00.000Z')
-  t.is(preview.description, undefined)
+  t.is(preview.description, 'SOPHIE')
   t.is(preview.title, "OIL OF EVERY PEARL'S UN-INSIDES NON-STOP REMIX ALBUM")
   t.is(preview.type, 'album')
   t.is(preview.artist.includes('SOPHIE'), true)
@@ -115,7 +115,7 @@ test('get preview for spotify playlist', async t => {
   )
 
   t.is(preview.date, undefined)
-  t.is(preview.description, undefined)
+  t.is(preview.description, 'sophiemsmsmsm')
   t.is(preview.title, 'SOPHIE – PRODUCT')
   t.is(preview.type, 'playlist')
   t.is(preview.artist.includes('SOPHIE'), true)
@@ -135,10 +135,10 @@ test('get preview for spotify episode', async t => {
   )
 
   t.is(preview.title, 'Hasty Treat - Modules in Node')
-  t.is(preview.description, 'Tasty Web Development Treats')
+  t.is(preview.description, 'Syntax - Tasty Web Development Treats')
   t.is(preview.type, 'episode')
-  t.is(preview.artist, 'Syntax')
-  t.is(preview.track, 'Syntax - Tasty Web Development Treats')
+  t.is(preview.artist, 'Syntax - Tasty Web Development Treats')
+  t.is(preview.track, 'Hasty Treat - Modules in Node')
   t.is(preview.date, '2020-01-06T14:00:00.000Z')
   t.is(preview.image.includes('://'), true)
   t.is(preview.audio.includes('/mp3-preview/'), true)
@@ -155,13 +155,9 @@ test('get preview for spotify playlist with episode inside', async t => {
   )
 
   t.is(preview.date, undefined)
-  t.is(
-    preview.description,
-    'https:&#x2F;&#x2F;github.com&#x2F;microlinkhq&#x2F;spotify-url-info'
-  )
   t.is(preview.title, 'spotify-url-with-episode')
   t.is(preview.type, 'playlist')
-  t.is(preview.artist, 'DroidsAndDruids')
+  t.is(preview.artist, 'Droids And Druids')
   t.is(preview.track, '#DDMAG9 Live: Novelettes con Celia Añó')
   t.is(preview.image.includes('://'), true)
   t.is(preview.audio.includes('/mp3-preview/'), true)
@@ -172,13 +168,12 @@ test('get preview for spotify playlist with episode inside', async t => {
   )
 })
 
-test('get preview for spotify collaboratie playlist', async t => {
+test('get preview for spotify collaborative playlist', async t => {
   const preview = await getPreview(
     'https://open.spotify.com/playlist/29n3VgifrVF9ZxFV9B6yRA'
   )
 
   t.is(preview.date, undefined)
-  t.is(preview.description, 'feat Joseba')
   t.is(preview.title, '🤘 ROCK')
   t.is(preview.type, 'playlist')
   t.is(preview.artist, 'Metalocalypse: Dethklok')
@@ -195,8 +190,6 @@ test('get preview for spotify collaboratie playlist', async t => {
 test('get preview for spotify album with constructed uri', async t => {
   const preview = await getPreview('spotify:album:7vQKfsKKrI0xObMqojazHR')
 
-  t.is(preview.date, '2019-09-06T00:00:00.000Z')
-  t.is(preview.description, undefined)
   t.is(preview.title, "OIL OF EVERY PEARL'S UN-INSIDES NON-STOP REMIX ALBUM")
   t.is(preview.type, 'album')
   t.is(preview.artist.includes('SOPHIE'), true)
@@ -215,14 +208,12 @@ test('get preview for spotify album with play url', async t => {
     'https://play.spotify.com/album/4tDBsfbHRJ9OdcMO9bmnai'
   )
 
-  t.is(preview.date, '2015-11-27T00:00:00.000Z')
-  t.is(preview.description, undefined)
   t.is(preview.title, 'PRODUCT')
   t.is(preview.type, 'album')
   t.is(preview.artist.includes('SOPHIE'), true)
   t.is(preview.track, 'BIPP')
   t.is(preview.image.includes('://'), true)
-  t.is(preview.audio, null)
+  t.is(preview.audio, undefined)
   t.is(preview.link.includes('open.spotify.com/album/'), true)
   t.is(
     preview.embed,
@@ -235,14 +226,12 @@ test('get preview for spotify Album with twitter embed url', async t => {
     'https://open.spotify.com/embed/album/4tDBsfbHRJ9OdcMO9bmnai?utm_campaign=twitter-player&utm_source=open&utm_medium=twitter'
   )
 
-  t.is(preview.date, '2015-11-27T00:00:00.000Z')
-  t.is(preview.description, undefined)
   t.is(preview.title, 'PRODUCT')
   t.is(preview.type, 'album')
   t.is(preview.artist.includes('SOPHIE'), true)
   t.is(preview.track, 'BIPP')
   t.is(preview.image.includes('://'), true)
-  t.is(preview.audio, null)
+  t.is(preview.audio, undefined)
   t.is(preview.link.includes('open.spotify.com/album/'), true)
   t.is(
     preview.embed,
@@ -255,14 +244,12 @@ test('get preview for spotify Track with constructed embed url', async t => {
     'https://embed.spotify.com/?uri=spotify:album:4tDBsfbHRJ9OdcMO9bmnai'
   )
 
-  t.is(preview.date, '2015-11-27T00:00:00.000Z')
-  t.is(preview.description, undefined)
   t.is(preview.title, 'PRODUCT')
   t.is(preview.type, 'album')
   t.is(preview.artist.includes('SOPHIE'), true)
   t.is(preview.track, 'BIPP')
   t.is(preview.image.includes('://'), true)
-  t.is(preview.audio, null)
+  t.is(preview.audio, undefined)
   t.is(preview.link.includes('open.spotify.com/album/'), true)
   t.is(
     preview.embed,
