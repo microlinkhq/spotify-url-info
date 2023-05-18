@@ -141,7 +141,7 @@ test('get preview for spotify episode', async t => {
   t.is(preview.track, 'Hasty Treat - Modules in Node')
   t.is(preview.date, '2020-01-06T14:00:00.000Z')
   t.is(preview.image.includes('://'), true)
-  t.is(preview.audio.includes('/mp3-preview/'), true)
+  t.is(preview.audio.includes('.spotifycdn.'), true)
   t.is(preview.link.includes('/episode/'), true)
   t.is(
     preview.embed,
@@ -160,7 +160,7 @@ test('get preview for spotify playlist with episode inside', async t => {
   t.is(preview.artist, 'Droids And Druids')
   t.is(preview.track, '#DDMAG9 Live: Novelettes con Celia Añó')
   t.is(preview.image.includes('://'), true)
-  t.is(preview.audio.includes('/mp3-preview/'), true)
+  t.is(preview.audio.includes('.spotifycdn.'), true)
   t.is(preview.link.includes('open.spotify.com/playlist/'), true)
   t.is(
     preview.embed,

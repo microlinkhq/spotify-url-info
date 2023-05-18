@@ -79,5 +79,5 @@ test('get tracks for spotify episode', async t => {
   )
   t.true(Array.isArray(tracks))
   t.is(tracks[0].name, 'Hasty Treat - Modules in Node')
-  t.is(tracks[0].previewUrl.includes('/mp3-preview/'), true)
+  t.is(tracks[0].previewUrl.includes('.spotifycdn.'), true)
 })
