@@ -18,14 +18,14 @@ const ERROR = {
   NOT_SCRIPTS: "Couldn't find scripts to get the data."
 }
 
+const SUPPORTED_TYPES = Object.values(TYPE)
+
 const throwError = message => {
   throw new TypeError(`${message}\n${ERROR.REPORT}`)
 }
 
-const SUPPORTED_TYPES = Object.values(TYPE)
-
-const parseData = text => {
-  const embed = parse(text)
+const parseData = html => {
+  const embed = parse(html)
 
   let scripts = embed.find(el => el.tagName === 'html')
   if (scripts === undefined) return throwError(ERROR.NOT_SCRIPTS)
@@ -70,7 +70,6 @@ const parseData = text => {
 const createGetData = fetch => async (url, opts) => {
   const parsedUrl = getParsedUrl(url)
   const embedURL = spotifyURI.formatEmbedURL(parsedUrl)
-
   const response = await fetch(embedURL, opts)
   const text = await response.text()
   return parseData(text)
@@ -96,16 +95,16 @@ function getArtistTrack (track) {
   return track.show
     ? track.show.publisher
     : []
-      .concat(track.artists)
-      .filter(Boolean)
-      .map(a => a.name)
-      .reduce(
-        (acc, name, index, array) =>
-          index === 0
-            ? name
-            : acc + (array.length - 1 === index ? ' & ' : ', ') + name,
-        ''
-      )
+        .concat(track.artists)
+        .filter(Boolean)
+        .map(a => a.name)
+        .reduce(
+          (acc, name, index, array) =>
+            index === 0
+              ? name
+              : acc + (array.length - 1 === index ? ' & ' : ', ') + name,
+          ''
+        )
 }
 
 function getPreview (data) {
@@ -137,7 +136,7 @@ const toTrack = track => ({
 const getTracks = data =>
   data.trackList ? data.trackList.map(toTrack) : [toTrack(data)]
 
-function normalizeData ({ data }) {
+const normalizeData = ({ data }) => {
   if (!data || !data.type || !data.name) {
     throw new Error("Data doesn't seem to be of the right shape to parse")
   }
@@ -153,7 +152,7 @@ function normalizeData ({ data }) {
   return data
 }
 
-function spotifyUrlInfo (fetch) {
+module.exports = fetch => {
   const getData = createGetData(fetch)
   return {
     getLink,
@@ -168,5 +167,4 @@ function spotifyUrlInfo (fetch) {
   }
 }
 
-module.exports = spotifyUrlInfo
 module.exports.parseData = parseData
