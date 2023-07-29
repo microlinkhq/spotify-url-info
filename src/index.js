@@ -18,22 +18,16 @@ const ERROR = {
   NOT_SCRIPTS: "Couldn't find scripts to get the data."
 }
 
+const SUPPORTED_TYPES = Object.values(TYPE)
+
 const throwError = message => {
   throw new TypeError(`${message}\n${ERROR.REPORT}`)
 }
 
-const SUPPORTED_TYPES = Object.values(TYPE)
-
-const createGetData = fetch => async (url, opts) => {
-  const parsedUrl = getParsedUrl(url)
-  const embedURL = spotifyURI.formatEmbedURL(parsedUrl)
-
-  const response = await fetch(embedURL, opts)
-  const text = await response.text()
-  const embed = parse(text)
+const parseData = html => {
+  const embed = parse(html)
 
   let scripts = embed.find(el => el.tagName === 'html')
-
   if (scripts === undefined) return throwError(ERROR.NOT_SCRIPTS)
 
   scripts = scripts.children
@@ -45,7 +39,6 @@ const createGetData = fetch => async (url, opts) => {
   )
 
   if (script !== undefined) {
-    // found data in the older embed style
     return normalizeData({
       data: JSON.parse(Buffer.from(script.children[0].content, 'base64'))
     })
@@ -56,13 +49,30 @@ const createGetData = fetch => async (url, opts) => {
   )
 
   if (script !== undefined) {
-    // found data in the new embed style
     const data = JSON.parse(Buffer.from(script.children[0].content, 'base64'))
       .data.entity
     return normalizeData({ data })
   }
 
+  script = scripts.find(script =>
+    script.attributes.some(({ value }) => value === '__NEXT_DATA__')
+  )
+
+  if (script !== undefined) {
+    const string = Buffer.from(script.children[0].content)
+    const data = JSON.parse(string).props.pageProps.state?.data.entity
+    if (data !== undefined) return normalizeData({ data })
+  }
+
   return throwError(ERROR.NOT_DATA)
+}
+
+const createGetData = fetch => async (url, opts) => {
+  const parsedUrl = getParsedUrl(url)
+  const embedURL = spotifyURI.formatEmbedURL(parsedUrl)
+  const response = await fetch(embedURL, opts)
+  const text = await response.text()
+  return parseData(text)
 }
 
 function getParsedUrl (url) {
@@ -126,7 +136,7 @@ const toTrack = track => ({
 const getTracks = data =>
   data.trackList ? data.trackList.map(toTrack) : [toTrack(data)]
 
-function normalizeData ({ data }) {
+const normalizeData = ({ data }) => {
   if (!data || !data.type || !data.name) {
     throw new Error("Data doesn't seem to be of the right shape to parse")
   }
@@ -142,7 +152,7 @@ function normalizeData ({ data }) {
   return data
 }
 
-function spotifyUrlInfo (fetch) {
+module.exports = fetch => {
   const getData = createGetData(fetch)
   return {
     getLink,
@@ -157,4 +167,4 @@ function spotifyUrlInfo (fetch) {
   }
 }
 
-module.exports = spotifyUrlInfo
+module.exports.parseData = parseData
