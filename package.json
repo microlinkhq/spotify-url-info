@@ -72,6 +72,8 @@
     "finepack": "latest",
     "git-authors-cli": "latest",
     "isomorphic-unfetch": "latest",
+    "lodash": "latest",
+    "map-values-deep": "latest",
     "nano-staged": "latest",
     "npm-check-updates": "latest",
     "simple-git-hooks": "latest",

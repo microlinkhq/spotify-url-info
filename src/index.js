@@ -24,16 +24,10 @@ const throwError = message => {
 
 const SUPPORTED_TYPES = Object.values(TYPE)
 
-const createGetData = fetch => async (url, opts) => {
-  const parsedUrl = getParsedUrl(url)
-  const embedURL = spotifyURI.formatEmbedURL(parsedUrl)
-
-  const response = await fetch(embedURL, opts)
-  const text = await response.text()
+const parseData = text => {
   const embed = parse(text)
 
   let scripts = embed.find(el => el.tagName === 'html')
-
   if (scripts === undefined) return throwError(ERROR.NOT_SCRIPTS)
 
   scripts = scripts.children
@@ -45,7 +39,6 @@ const createGetData = fetch => async (url, opts) => {
   )
 
   if (script !== undefined) {
-    // found data in the older embed style
     return normalizeData({
       data: JSON.parse(Buffer.from(script.children[0].content, 'base64'))
     })
@@ -56,13 +49,31 @@ const createGetData = fetch => async (url, opts) => {
   )
 
   if (script !== undefined) {
-    // found data in the new embed style
     const data = JSON.parse(Buffer.from(script.children[0].content, 'base64'))
       .data.entity
     return normalizeData({ data })
   }
 
+  script = scripts.find(script =>
+    script.attributes.some(({ value }) => value === '__NEXT_DATA__')
+  )
+
+  if (script !== undefined) {
+    const string = Buffer.from(script.children[0].content)
+    const data = JSON.parse(string).props.pageProps.state?.data.entity
+    if (data !== undefined) return normalizeData({ data })
+  }
+
   return throwError(ERROR.NOT_DATA)
+}
+
+const createGetData = fetch => async (url, opts) => {
+  const parsedUrl = getParsedUrl(url)
+  const embedURL = spotifyURI.formatEmbedURL(parsedUrl)
+
+  const response = await fetch(embedURL, opts)
+  const text = await response.text()
+  return parseData(text)
 }
 
 function getParsedUrl (url) {
@@ -85,16 +96,16 @@ function getArtistTrack (track) {
   return track.show
     ? track.show.publisher
     : []
-        .concat(track.artists)
-        .filter(Boolean)
-        .map(a => a.name)
-        .reduce(
-          (acc, name, index, array) =>
-            index === 0
-              ? name
-              : acc + (array.length - 1 === index ? ' & ' : ', ') + name,
-          ''
-        )
+      .concat(track.artists)
+      .filter(Boolean)
+      .map(a => a.name)
+      .reduce(
+        (acc, name, index, array) =>
+          index === 0
+            ? name
+            : acc + (array.length - 1 === index ? ' & ' : ', ') + name,
+        ''
+      )
 }
 
 function getPreview (data) {
@@ -158,3 +169,4 @@ function spotifyUrlInfo (fetch) {
 }
 
 module.exports = spotifyUrlInfo
+module.exports.parseData = parseData
