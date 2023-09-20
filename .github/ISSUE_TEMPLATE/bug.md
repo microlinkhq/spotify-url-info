@@ -4,7 +4,6 @@ about: Post a bug report when the library is not working for some or all spotify
 title: ''
 labels: ''
 assignees: ''
-
 ---
 
 **Describe the bug**

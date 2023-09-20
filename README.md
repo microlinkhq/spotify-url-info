@@ -23,19 +23,20 @@ In order to use the library, you have to provide the fetch agent to use:
 
 ```js
 const fetch = require('isomorphic-unfetch')
-const { getData, getPreview, getTracks, getDetails } = require('spotify-url-info')(fetch)
+const { getData, getPreview, getTracks, getDetails } =
+  require('spotify-url-info')(fetch)
 ```
 
 There are four functions:
 
 - **getData**<br/>
-Provides the full available data, in a shape that is very similar to [what the spotify API returns](https://developer.spotify.com/documentation/web-api/reference/object-model/).
+  Provides the full available data, in a shape that is very similar to [what the spotify API returns](https://developer.spotify.com/documentation/web-api/reference/object-model/).
 
 - **getPreview** <br/>
-Always returns the same fields for different types of resources (album, artist, playlist, track). The preview track is the first in the Album, Playlist, etc.
+  Always returns the same fields for different types of resources (album, artist, playlist, track). The preview track is the first in the Album, Playlist, etc.
 
 - **getTracks** <br/>
-Returns array with tracks. This data is passed on straight from spotify, so the shape could change.Only the first 100 tracks will be returned.
+  Returns array with tracks. This data is passed on straight from spotify, so the shape could change.Only the first 100 tracks will be returned.
 
 - **getDetails** <br/>
   Returns both the preview and tracks. Should be used if you require information from both of them so that only one request is made.
@@ -43,8 +44,9 @@ Returns array with tracks. This data is passed on straight from spotify, so the 
 All the methods receive a Spotify URL (play. or open.) as first argument:
 
 ```js
-getPreview('https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas')
-  .then(data => console.log(data))
+getPreview('https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas').then(data =>
+  console.log(data)
+)
 ```
 
 Additionally, you can provide fetch agent options as second argument:

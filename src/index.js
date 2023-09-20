@@ -107,8 +107,10 @@ function getArtistTrack (track) {
         )
 }
 
+const getTracks = data => data.trackList ? data.trackList.map(toTrack) : [toTrack(data)]
+
 function getPreview (data) {
-  const track = toTrack(data.trackList ? data.trackList[0] : data)
+  const [track] = getTracks(data)
   const date = getDate(data)
 
   return {
@@ -132,9 +134,6 @@ const toTrack = track => ({
   previewUrl: track.isPlayable ? track.audioPreview.url : undefined,
   uri: track.uri
 })
-
-const getTracks = data =>
-  data.trackList ? data.trackList.map(toTrack) : [toTrack(data)]
 
 const normalizeData = ({ data }) => {
   if (!data || !data.type || !data.name) {

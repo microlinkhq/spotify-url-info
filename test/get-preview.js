@@ -52,10 +52,8 @@ test.skip('getting preview for non spotify url string that looks like a spotify 
 })
 
 test('get preview for spotify track', async t => {
-  const preview = await getPreview(
-    'https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas'
-  )
-
+  const url = 'https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas'
+  const preview = await getPreview(url)
   t.is(preview.title, 'Immaterial')
   t.is(preview.date, '2018-06-15T00:00:00.000Z')
   t.is(preview.description, undefined)
@@ -69,10 +67,8 @@ test('get preview for spotify track', async t => {
 })
 
 test('get preview for spotify artist', async t => {
-  const preview = await getPreview(
-    'https://open.spotify.com/artist/5a2w2tgpLwv26BYJf2qYwu'
-  )
-
+  const url = 'https://open.spotify.com/artist/5a2w2tgpLwv26BYJf2qYwu'
+  const preview = await getPreview(url)
   t.is(preview.date, undefined)
   t.is(preview.description, 'Top tracks')
   t.is(preview.track, 'Immaterial')
@@ -91,10 +87,8 @@ test('get preview for spotify artist', async t => {
 })
 
 test('get preview for spotify album', async t => {
-  const preview = await getPreview(
-    'https://open.spotify.com/album/7vQKfsKKrI0xObMqojazHR'
-  )
-
+  const url = 'https://open.spotify.com/album/7vQKfsKKrI0xObMqojazHR'
+  const preview = await getPreview(url)
   t.is(preview.description, 'SOPHIE')
   t.is(preview.title, "OIL OF EVERY PEARL'S UN-INSIDES NON-STOP REMIX ALBUM")
   t.is(preview.type, 'album')
@@ -110,10 +104,8 @@ test('get preview for spotify album', async t => {
 })
 
 test('get preview for spotify playlist', async t => {
-  const preview = await getPreview(
-    'https://open.spotify.com/user/sophiemsmsmsm/playlist/3Q4cPwMHY95ZHXtmcU2xvH'
-  )
-
+  const url = 'https://open.spotify.com/playlist/3Q4cPwMHY95ZHXtmcU2xvH'
+  const preview = await getPreview(url)
   t.is(preview.date, undefined)
   t.is(preview.description, 'sophiemsmsmsm')
   t.is(preview.title, 'SOPHIE – PRODUCT')
@@ -130,10 +122,8 @@ test('get preview for spotify playlist', async t => {
 })
 
 test('get preview for spotify episode', async t => {
-  const preview = await getPreview(
-    'http://open.spotify.com/episode/64TORH3xleuD1wcnFsrH1E'
-  )
-
+  const url = 'http://open.spotify.com/episode/64TORH3xleuD1wcnFsrH1E'
+  const preview = await getPreview(url)
   t.is(preview.title, 'Hasty Treat - Modules in Node')
   t.is(preview.description, 'Syntax - Tasty Web Development Treats')
   t.is(preview.type, 'episode')
@@ -150,15 +140,13 @@ test('get preview for spotify episode', async t => {
 })
 
 test('get preview for spotify playlist with episode inside', async t => {
-  const preview = await getPreview(
-    'https://open.spotify.com/playlist/26q1NUbChiQDqjwO4SDdRD'
-  )
-
+  const url = 'https://open.spotify.com/playlist/26q1NUbChiQDqjwO4SDdRD'
+  const preview = await getPreview(url)
   t.is(preview.date, undefined)
   t.is(preview.title, 'spotify-url-with-episode')
   t.is(preview.type, 'playlist')
   t.is(preview.artist, 'Droids And Druids')
-  t.is(preview.track, '#DDMAG9 Live: Novelettes con Celia Añó')
+  t.is(preview.track, '4x01: Barbieland & Matrix')
   t.is(preview.image.includes('://'), true)
   t.is(preview.audio.includes('.spotifycdn.'), true)
   t.is(preview.link.includes('open.spotify.com/playlist/'), true)
@@ -169,10 +157,8 @@ test('get preview for spotify playlist with episode inside', async t => {
 })
 
 test('get preview for spotify collaborative playlist', async t => {
-  const preview = await getPreview(
-    'https://open.spotify.com/playlist/29n3VgifrVF9ZxFV9B6yRA'
-  )
-
+  const url = 'https://open.spotify.com/playlist/29n3VgifrVF9ZxFV9B6yRA'
+  const preview = await getPreview(url)
   t.is(preview.date, undefined)
   t.is(preview.title, '🤘 ROCK')
   t.is(preview.type, 'playlist')
@@ -204,10 +190,8 @@ test('get preview for spotify album with constructed uri', async t => {
 })
 
 test('get preview for spotify album with play url', async t => {
-  const preview = await getPreview(
-    'https://play.spotify.com/album/4tDBsfbHRJ9OdcMO9bmnai'
-  )
-
+  const url = 'https://play.spotify.com/album/4tDBsfbHRJ9OdcMO9bmnai'
+  const preview = await getPreview(url)
   t.is(preview.title, 'PRODUCT')
   t.is(preview.type, 'album')
   t.is(preview.artist.includes('SOPHIE'), true)
@@ -222,10 +206,9 @@ test('get preview for spotify album with play url', async t => {
 })
 
 test('get preview for spotify Album with twitter embed url', async t => {
-  const preview = await getPreview(
+  const url =
     'https://open.spotify.com/embed/album/4tDBsfbHRJ9OdcMO9bmnai?utm_campaign=twitter-player&utm_source=open&utm_medium=twitter'
-  )
-
+  const preview = await getPreview(url)
   t.is(preview.title, 'PRODUCT')
   t.is(preview.type, 'album')
   t.is(preview.artist.includes('SOPHIE'), true)
@@ -240,10 +223,9 @@ test('get preview for spotify Album with twitter embed url', async t => {
 })
 
 test('get preview for spotify Track with constructed embed url', async t => {
-  const preview = await getPreview(
+  const url =
     'https://embed.spotify.com/?uri=spotify:album:4tDBsfbHRJ9OdcMO9bmnai'
-  )
-
+  const preview = await getPreview(url)
   t.is(preview.title, 'PRODUCT')
   t.is(preview.type, 'album')
   t.is(preview.artist.includes('SOPHIE'), true)
@@ -258,8 +240,7 @@ test('get preview for spotify Track with constructed embed url', async t => {
 })
 
 test('list multiple artists as one', async t => {
-  const preview = await getPreview(
-    'https://open.spotify.com/track/5ddFjrPG8NgQQ6xlOQIVd2'
-  )
+  const url = 'https://open.spotify.com/track/5ddFjrPG8NgQQ6xlOQIVd2'
+  const preview = await getPreview(url)
   t.is(preview.artist, 'C. Tangana, Niño de Elche & La Húngara')
 })

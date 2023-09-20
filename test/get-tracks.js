@@ -47,36 +47,32 @@ test('get tracks for spotify track', async t => {
 })
 
 test('get tracks for spotify artist', async t => {
-  const tracks = await getTracks(
-    'https://open.spotify.com/artist/5a2w2tgpLwv26BYJf2qYwu'
-  )
+  const url = 'https://open.spotify.com/artist/5a2w2tgpLwv26BYJf2qYwu'
+  const tracks = await getTracks(url)
   t.true(Array.isArray(tracks))
   t.is(tracks[0].name, 'Immaterial')
   t.is(tracks[0].previewUrl.includes('/mp3-preview/'), true)
 })
 
 test('get tracks for spotify album', async t => {
-  const tracks = await getTracks(
-    'https://open.spotify.com/album/4tDBsfbHRJ9OdcMO9bmnai'
-  )
+  const url = 'https://open.spotify.com/album/4tDBsfbHRJ9OdcMO9bmnai'
+  const tracks = await getTracks(url)
   t.true(Array.isArray(tracks))
   t.is(tracks[1].name, 'ELLE')
   t.is(tracks[1].previewUrl.includes('/mp3-preview/'), true)
 })
 
 test('get tracks for spotify playlist', async t => {
-  const tracks = await getTracks(
-    'https://open.spotify.com/user/sophiemsmsmsm/playlist/3Q4cPwMHY95ZHXtmcU2xvH'
-  )
+  const url = 'https://open.spotify.com/playlist/3Q4cPwMHY95ZHXtmcU2xvH'
+  const tracks = await getTracks(url)
   t.true(Array.isArray(tracks))
   t.is(tracks[1].name, 'ELLE')
   t.is(tracks[1].previewUrl.includes('/mp3-preview/'), true)
 })
 
 test('get tracks for spotify episode', async t => {
-  const tracks = await getTracks(
-    'http://open.spotify.com/episode/64TORH3xleuD1wcnFsrH1E'
-  )
+  const url = 'http://open.spotify.com/episode/64TORH3xleuD1wcnFsrH1E'
+  const tracks = await getTracks(url)
   t.true(Array.isArray(tracks))
   t.is(tracks[0].name, 'Hasty Treat - Modules in Node')
   t.is(tracks[0].previewUrl.includes('.spotifycdn.'), true)

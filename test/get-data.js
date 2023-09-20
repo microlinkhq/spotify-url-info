@@ -54,7 +54,6 @@ test('getting data for a deleted spotify url should return rejection', async t =
 test('get data for spotify track', async t => {
   const url = 'https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas'
   const data = await getData(url)
-
   t.is(data.type, 'track')
   t.is(data.name, 'Immaterial')
   t.is(getLink(data), url)
@@ -63,7 +62,6 @@ test('get data for spotify track', async t => {
 test('get data for spotify artist', async t => {
   const url = 'https://open.spotify.com/artist/5a2w2tgpLwv26BYJf2qYwu'
   const data = await getData(url)
-
   t.is(data.type, 'artist')
   t.is(data.name, 'SOPHIE')
   t.is(getLink(data), url)
@@ -72,17 +70,14 @@ test('get data for spotify artist', async t => {
 test('get data for spotify album', async t => {
   const url = 'https://open.spotify.com/album/4tDBsfbHRJ9OdcMO9bmnai'
   const data = await getData(url)
-
   t.is(data.type, 'album')
   t.is(data.name, 'PRODUCT')
   t.is(getLink(data), url)
 })
 
 test('get data for spotify playlist', async t => {
-  const data = await getData(
-    'https://open.spotify.com/user/sophiemsmsmsm/playlist/3Q4cPwMHY95ZHXtmcU2xvH'
-  )
-
+  const url = 'https://open.spotify.com/playlist/3Q4cPwMHY95ZHXtmcU2xvH'
+  const data = await getData(url)
   t.is(data.type, 'playlist')
   t.is(data.name, 'SOPHIE – PRODUCT')
   t.is(
