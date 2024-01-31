@@ -20,15 +20,17 @@ const ERROR = {
 
 const SUPPORTED_TYPES = Object.values(TYPE)
 
-const throwError = message => {
-  throw new TypeError(`${message}\n${ERROR.REPORT}`)
+const throwError = (message, html) => {
+  const error = new TypeError(`${message}\n${ERROR.REPORT}`)
+  error.html = html
+  throw error
 }
 
 const parseData = html => {
   const embed = parse(html)
 
   let scripts = embed.find(el => el.tagName === 'html')
-  if (scripts === undefined) return throwError(ERROR.NOT_SCRIPTS)
+  if (scripts === undefined) return throwError(ERROR.NOT_SCRIPTS, html)
 
   scripts = scripts.children
     .find(el => el.tagName === 'body')
@@ -64,7 +66,7 @@ const parseData = html => {
     if (data !== undefined) return normalizeData({ data })
   }
 
-  return throwError(ERROR.NOT_DATA)
+  return throwError(ERROR.NOT_DATA, html)
 }
 
 const createGetData = fetch => async (url, opts) => {
@@ -107,7 +109,8 @@ function getArtistTrack (track) {
         )
 }
 
-const getTracks = data => data.trackList ? data.trackList.map(toTrack) : [toTrack(data)]
+const getTracks = data =>
+  data.trackList ? data.trackList.map(toTrack) : [toTrack(data)]
 
 function getPreview (data) {
   const [track] = getTracks(data)
@@ -167,3 +170,4 @@ module.exports = fetch => {
 }
 
 module.exports.parseData = parseData
+module.exports.throwError = throwError
