@@ -59,7 +59,7 @@
   ],
   "dependencies": {
     "himalaya": "~1.1.0",
-    "spotify-uri": "~4.0.0"
+    "spotify-uri": "~4.1.0"
   },
   "devDependencies": {
     "@commitlint/cli": "latest",
