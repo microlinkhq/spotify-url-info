@@ -85,4 +85,4 @@ There are no guarantees about the shape of this data, because it varies with dif
 **spotify-url-info** © [microlink.io](https://microlink.io), released under the [MIT](https://github.com/microlinkhq/spotify-url-info/blob/master/LICENSE.md) License.<br>
 Authored by [Karl Sander](https://github.com/karlsander) and maintained by [Kiko Beats](https://kikobeats.com) with help from [contributors](https://github.com/microlinkhq/spotify-url-info/contributors).
 
-> [microlink.io](https://microlink.io) · GitHub [microlink.io](https://github.com/microlinkhq) · Twitter [@microlinkhq](https://twitter.com/microlinkhq)
+> [microlink.io](https://microlink.io) · GitHub [microlink.io](https://github.com/microlinkhq) · X [@microlinkhq](https://x.com/microlinkhq)
