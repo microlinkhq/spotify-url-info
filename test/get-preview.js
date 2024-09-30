@@ -71,7 +71,7 @@ test('get preview for spotify artist', async t => {
   const preview = await getPreview(url)
   t.is(preview.date, undefined)
   t.is(preview.description, 'Top tracks')
-  t.is(preview.track, 'Reason Why (feat. Kim Petras and BC Kingdom)')
+  t.is(preview.track, 'Ponyboy')
   t.is(preview.title, 'SOPHIE')
   t.is(preview.type, 'artist')
 
