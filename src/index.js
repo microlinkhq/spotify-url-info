@@ -87,7 +87,8 @@ function getParsedUrl (url) {
   }
 }
 
-const getImages = data => data.coverArt?.sources || data.images
+const getImages = data =>
+  data.coverArt?.sources || data.images || data.visualIdentity.image
 
 const getDate = data => data.releaseDate?.isoString || data.release_date
 
