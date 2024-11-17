@@ -87,7 +87,8 @@ function getParsedUrl (url) {
   }
 }
 
-const getImages = data => data.coverArt?.sources || data.images
+const getImages = data =>
+  data.coverArt?.sources || data.images || data.visualIdentity.image
 
 const getDate = data => data.releaseDate?.isoString || data.release_date
 
@@ -123,7 +124,7 @@ function getPreview (data) {
     track: track.name,
     description: data.description || data.subtitle || track.description,
     artist: track.artist,
-    image: getImages(data).reduce((a, b) => (a.width > b.width ? a : b)).url,
+    image: getImages(data)?.reduce((a, b) => (a.width > b.width ? a : b))?.url,
     audio: track.previewUrl,
     link: getLink(data),
     embed: `https://embed.spotify.com/?uri=${data.uri}`

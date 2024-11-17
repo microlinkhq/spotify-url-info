@@ -244,3 +244,9 @@ test('list multiple artists as one', async t => {
   const preview = await getPreview(url)
   t.is(preview.artist, 'C. Tangana, Niño de Elche & La Húngara')
 })
+
+test('get preview for spotify track with no cover', async t => {
+  const url = 'https://open.spotify.com/track/4AjDdThsTlHF90gZTYVZzR'
+  const preview = await getPreview(url)
+  t.true(preview.image.includes('://'))
+})
