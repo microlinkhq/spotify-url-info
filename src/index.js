@@ -136,7 +136,8 @@ const toTrack = track => ({
   duration: track.duration,
   name: track.title,
   previewUrl: track.isPlayable ? track.audioPreview.url : undefined,
-  uri: track.uri
+  uri: track.uri,
+  coverUrl: getImages(track)
 })
 
 const normalizeData = ({ data }) => {
