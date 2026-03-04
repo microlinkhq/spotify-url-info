@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [3.3.0](https://github.com/microlinkhq/spotify-url-info/compare/v3.2.18...v3.3.0) (2026-03-04)
+
+
+### Features
+
+* **types:** add TypeScript type definitions ([ab83c03](https://github.com/microlinkhq/spotify-url-info/commit/ab83c03fb78041a5edc1b1e650858b94f3b137f8))
+
 ### 3.2.18 (2024-11-17)
 
 ### 3.2.17 (2024-09-30)
