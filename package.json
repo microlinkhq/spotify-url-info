@@ -4,6 +4,7 @@
   "homepage": "https://github.com/microlinkhq/spotify-url-info",
   "version": "3.2.18",
   "main": "src/index.js",
+  "types": "src/index.d.ts",
   "author": {
     "email": "kall@kall.ws",
     "name": "Karl Sander"
