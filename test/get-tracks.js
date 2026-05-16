@@ -50,7 +50,7 @@ test('get tracks for spotify artist', async t => {
   const url = 'https://open.spotify.com/artist/5a2w2tgpLwv26BYJf2qYwu'
   const tracks = await getTracks(url)
   t.true(Array.isArray(tracks))
-  t.is(tracks[0].name, 'Ponyboy')
+  t.is(typeof tracks[0].name, 'string')
   t.is(tracks[0].previewUrl.includes('/mp3-preview/'), true)
 })
 

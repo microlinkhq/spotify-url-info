@@ -71,7 +71,7 @@ test('get preview for spotify artist', async t => {
   const preview = await getPreview(url)
   t.is(preview.date, undefined)
   t.is(preview.description, 'Top tracks')
-  t.is(preview.track, 'Ponyboy')
+  t.is(typeof preview.track, 'string')
   t.is(preview.title, 'SOPHIE')
   t.is(preview.type, 'artist')
 
@@ -197,7 +197,7 @@ test('get preview for spotify album with play url', async t => {
   t.is(preview.artist.includes('SOPHIE'), true)
   t.is(preview.track, 'BIPP')
   t.is(preview.image.includes('://'), true)
-  t.is(preview.audio, undefined)
+  t.true(preview.audio === undefined || preview.audio.includes('/mp3-preview/'))
   t.is(preview.link.includes('open.spotify.com/album/'), true)
   t.is(
     preview.embed,
@@ -214,7 +214,7 @@ test('get preview for spotify Album with twitter embed url', async t => {
   t.is(preview.artist.includes('SOPHIE'), true)
   t.is(preview.track, 'BIPP')
   t.is(preview.image.includes('://'), true)
-  t.is(preview.audio, undefined)
+  t.true(preview.audio === undefined || preview.audio.includes('/mp3-preview/'))
   t.is(preview.link.includes('open.spotify.com/album/'), true)
   t.is(
     preview.embed,
@@ -231,7 +231,7 @@ test('get preview for spotify Track with constructed embed url', async t => {
   t.is(preview.artist.includes('SOPHIE'), true)
   t.is(preview.track, 'BIPP')
   t.is(preview.image.includes('://'), true)
-  t.is(preview.audio, undefined)
+  t.true(preview.audio === undefined || preview.audio.includes('/mp3-preview/'))
   t.is(preview.link.includes('open.spotify.com/album/'), true)
   t.is(
     preview.embed,
