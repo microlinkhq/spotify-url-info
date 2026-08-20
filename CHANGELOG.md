@@ -2,6 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### 3.3.3 (2026-08-20)
+
+
+### Bug Fixes
+
+* retry embed fetch on proxy timeouts ([c3874d8](https://github.com/microlinkhq/spotify-url-info/commit/c3874d82ae742ed21c3edf41e1dcefcb2278df36))
+
 ### 3.3.2 (2026-08-05)
 
 ### 3.3.1 (2026-06-18)

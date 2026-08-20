@@ -2,7 +2,7 @@
   "name": "spotify-url-info",
   "description": "Fetch Spotify track, album, and playlist metadata from share URLs without an API key.",
   "homepage": "https://github.com/microlinkhq/spotify-url-info",
-  "version": "3.3.2",
+  "version": "3.3.3",
   "types": "src/index.d.ts",
   "main": "src/index.js",
   "author": {
