@@ -72,9 +72,19 @@ const parseData = html => {
 const createGetData = fetch => async (url, opts) => {
   const parsedUrl = getParsedUrl(url)
   const embedURL = spotifyURI.formatEmbedURL(parsedUrl)
-  const response = await fetch(embedURL, opts)
-  const text = await response.text()
-  return parseData(text)
+
+  let html
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      html = await (await fetch(embedURL, opts)).text()
+    } catch (error) {
+      if (attempt === 2) throw error
+      continue
+    }
+    if (html.includes('<html') || attempt === 2) break
+  }
+
+  return parseData(html)
 }
 
 function getParsedUrl (url) {

@@ -1,6 +1,8 @@
 'use strict'
 
+const { readFile } = require('fs/promises')
 const fetch = require('isomorphic-unfetch')
+const path = require('path')
 const test = require('ava')
 
 const { getLink, getData } = require('..')(fetch)
@@ -49,6 +51,24 @@ test('getting data for a deleted spotify url should return rejection', async t =
     error.message,
     "Couldn't find any data in embed page that we know how to parse.\nPlease report the problem at https://github.com/microlinkhq/spotify-url-info/issues."
   )
+})
+
+test('retries after upstream timeout', async t => {
+  const html = await readFile(
+    path.join(__dirname, './fixtures/nextjs.html'),
+    'utf-8'
+  )
+  let calls = 0
+  const { getData: getDataWithRetry } = require('..')(async () => {
+    calls += 1
+    if (calls === 1) return { text: async () => 'upstream request timeout' }
+    return { text: async () => html }
+  })
+  const data = await getDataWithRetry(
+    'https://open.spotify.com/track/5nTtCOCds6I0PHMNtqelas'
+  )
+  t.is(data.name, 'Immaterial')
+  t.is(calls, 2)
 })
 
 test('get data for spotify track', async t => {
